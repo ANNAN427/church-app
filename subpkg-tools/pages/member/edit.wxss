@@ -1,0 +1,71 @@
+/* pages/member/edit.wxss */
+.container {
+  padding: 30rpx;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+.form-section {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 30rpx;
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 15rpx;
+}
+
+.form-input,
+.form-picker {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 12rpx;
+  padding: 35rpx 30rpx;
+  font-size: 30rpx;
+  border: 2rpx solid #e0e0e0;
+  min-height: 100rpx;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+.form-input::placeholder {
+  color: #999999;
+}
+
+.form-input:focus,
+.form-picker:focus {
+  background: white;
+  border-color: #667eea;
+}
+
+.btn-save {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 15rpx;
+  padding: 25rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  margin-top: 20rpx;
+  box-shadow: 0 8rpx 20rpx rgba(102, 126, 234, 0.3);
+}
+
+.btn-delete {
+  background: #f8f9fa;
+  color: #e74c3c;
+  border: 2rpx solid #e74c3c;
+  border-radius: 15rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  margin-top: 20rpx;
+}

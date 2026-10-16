@@ -1,0 +1,216 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 顶部广告语 -->
+  <view class="slogan-banner">
+    <text class="slogan-text">每一个名门望族，都值得一谱</text>
+  </view>
+
+  <!-- 家谱名称 -->
+  <view class="family-name-section">
+    <text class="family-name-label">当前家谱：</text>
+    <text class="family-name-value">{{familyName}}</text>
+    <text class="edit-family-name" bindtap="editFamilyName">编辑</text>
+    <button class="share-family-tree-btn" open-type="share" size="mini">分享</button>
+  </view>
+
+  <!-- 上方：长辈区域 -->
+  <view class="top-section">
+    <view class="elders-row">
+      <!-- 显示已存在的长辈 -->
+      <view class="elder-card" wx:for="{{elders}}" wx:key="id" wx:for-item="elder" bindtap="showMemberMenu" data-id="{{elder.id}}" data-name="{{elder.name}}" data-relation="{{elder.relation}}">
+        <view class="member-avatar-large {{elder.gender === 'male' ? 'male' : 'female'}} {{elder.status === 'deceased' ? 'deceased' : ''}}">{{elder.gender === 'male' ? '👨' : '👩'}}</view>
+        <view class="member-name">{{elder.name}}</view>
+        <view class="member-relation">{{elder.relation}}</view>
+      </view>
+      
+      <!-- 添加父亲按钮 -->
+      <view class="add-card-elder" wx:if="{{!hasFather}}" bindtap="addRelative" data-type="father">
+        <view class="add-icon-circle">+</view>
+        <view class="add-text-small">添加父亲</view>
+      </view>
+      
+      <!-- 添加母亲按钮 -->
+      <view class="add-card-elder" wx:if="{{!hasMother}}" bindtap="addRelative" data-type="mother">
+        <view class="add-icon-circle">+</view>
+        <view class="add-text-small">添加母亲</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 中间：当前人区域 -->
+  <view class="middle-section">
+    <!-- 左侧：添加兄妹和已添加的兄妹 -->
+    <view class="left-column">
+      <view class="left-add" bindtap="showSiblingMenu">
+        <view class="add-icon-square">+</view>
+        <view class="add-text-medium">添加兄妹</view>
+      </view>
+      <!-- 显示已添加的兄弟 -->
+      <view class="sibling-card" wx:for="{{brothers}}" wx:key="id" bindtap="showMemberMenu" data-id="{{item.id}}" data-name="{{item.name}}" data-relation="{{item.relation}}">
+        <view class="member-avatar-medium {{item.gender === 'male' ? 'male' : 'female'}} {{item.status === 'deceased' ? 'deceased' : ''}}">{{item.gender === 'male' ? '👨' : '👩'}}</view>
+        <view class="member-name-small">{{item.name}}</view>
+        <view class="member-relation-small">{{item.relation}}</view>
+      </view>
+      
+      <!-- 显示已添加的姐妹 -->
+      <view class="sibling-card" wx:for="{{sisters}}" wx:key="id" bindtap="showMemberMenu" data-id="{{item.id}}" data-name="{{item.name}}" data-relation="{{item.relation}}">
+        <view class="member-avatar-medium {{item.gender === 'male' ? 'male' : 'female'}} {{item.status === 'deceased' ? 'deceased' : ''}}">{{item.gender === 'male' ? '👨' : '👩'}}</view>
+        <view class="member-name-small">{{item.name}}</view>
+        <view class="member-relation-small">{{item.relation}}</view>
+      </view>
+    </view>
+
+    <!-- 中间：当前人 -->
+    <view class="current-person-large">
+      <view class="current-badge">
+        <text class="badge-text">当前主咖</text>
+      </view>
+      <view class="current-avatar-large {{currentPerson.gender === 'male' ? 'male' : 'female'}}">
+        <text>{{currentPerson.avatar}}</text>
+      </view>
+      <view class="current-name-large">{{currentPerson.name}}</view>
+      <view class="current-actions">
+        <view class="action-tag" bindtap="editCurrentMember">{{currentPerson.name === '待添加' ? '添加成员' : '编辑资料'}}</view>
+        <view class="action-tag" bindtap="showMembers" wx:if="{{currentPerson.name !== '待添加'}}">切换身份</view>
+      </view>
+    </view>
+
+    <!-- 右侧：已添加的配偶和添加按钮 -->
+    <view class="right-column">
+      <!-- 显示已添加的配偶 -->
+      <view class="spouse-card" wx:for="{{spouses}}" wx:key="id" bindtap="showMemberMenu" data-id="{{item.id}}" data-name="{{item.name}}" data-relation="{{item.gender === 'male' ? '丈夫' : '妻子'}}">
+        <view class="member-avatar-medium {{item.gender === 'male' ? 'male' : 'female'}} {{item.status === 'deceased' ? 'deceased' : ''}}">{{item.gender === 'male' ? '👨' : '👩'}}</view>
+        <view class="member-name-small">{{item.name}}</view>
+        <view class="member-relation-small">{{item.relation}}</view>
+      </view>
+      <!-- 添加配偶按钮 -->
+      <view class="add-card-spouse" bindtap="addRelative" data-type="spouse">
+        <view class="add-icon-circle">+</view>
+        <view class="add-text-small">添加配偶</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 下方：晚辈区域 -->
+  <view class="bottom-section">
+    <view class="children-row">
+      <view class="child-card" wx:for="{{children}}" wx:key="id" wx:for-index="index" bindtap="showMemberMenu" data-id="{{item.id}}" data-name="{{item.name}}" data-relation="{{item.relation}}">
+        <view class="member-avatar-medium {{item.gender === 'male' ? 'male' : 'female'}} {{item.status === 'deceased' ? 'deceased' : ''}}">{{item.gender === 'male' ? '👨' : '👩'}}</view>
+        <view class="member-name-small">{{item.name}}</view>
+        <view class="member-relation-small">{{item.relation}}</view>
+      </view>
+    </view>
+    <view class="add-children-row">
+      <view class="add-card-child" bindtap="addRelative" data-type="son">
+        <view class="add-icon-square">+</view>
+        <view class="add-text-medium">添加儿子</view>
+      </view>
+      <view class="add-card-child" bindtap="addRelative" data-type="daughter">
+        <view class="add-icon-square">+</view>
+        <view class="add-text-medium">添加女儿</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 家族统计和电子家谱模块 -->
+  <view class="family-stats-section">
+    <!-- 引导文字 -->
+    <view class="guidance-text">
+      <text class="guidance-icon">🌳</text>
+      <text class="guidance-content">树有根 水有源 家有谱</text>
+      <text class="guidance-icon">📜</text>
+    </view>
+    <!-- 家族统计 -->
+    <view class="stats-grid">
+      <view class="stat-item" bindtap="showMembers">
+        <view class="stat-icon">👥</view>
+        <view class="stat-value">{{totalPersons}}</view>
+        <view class="stat-label">家庭成员</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-icon">📊</view>
+        <view class="stat-value">{{totalRelationships}}</view>
+        <view class="stat-label">关系总数</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-icon">📈</view>
+        <view class="stat-value">{{totalGenerations}}</view>
+        <view class="stat-label">辈分级数</view>
+      </view>
+      <view class="stat-item" bindtap="showFamilyTree">
+        <view class="stat-icon">🌳</view>
+        <view class="stat-value"></view>
+        <view class="stat-label">电子家谱</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 家庭成员列表弹窗 -->
+<view class="modal" wx:if="{{showMembersModal}}" bindtap="hideMembers">
+  <view class="modal-content members-modal" catchtap="stopPropagation">
+    <view class="modal-header">
+      <h2>家庭成员列表</h2>
+      <span class="close" bindtap="hideMembers">×</span>
+    </view>
+    <view class="modal-body">
+      <view class="member-list">
+        <view class="member-item" wx:for="{{allMembers}}" wx:key="id">
+          <view class="member-item-content" bindtap="switchToMember" data-id="{{item.id}}">
+            <view class="member-item-name">{{item.name}}</view>
+          </view>
+          <view class="member-item-actions">
+            <view class="member-item-action-edit" bindtap="editMember" data-id="{{item.id}}">编辑</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+  <!-- 中心人物菜单弹窗 -->
+  <view class="modal" wx:if="{{showCenterMenu}}" bindtap="hideCenterMenu">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="menu-item" bindtap="editCurrentMember">编辑信息</view>
+      <view class="menu-item" bindtap="switchMember">切换成员</view>
+      <view class="menu-item" bindtap="hideCenterMenu">取消</view>
+    </view>
+  </view>
+
+  <!-- 兄弟姐妹选择弹窗 -->
+  <view class="modal" wx:if="{{showSiblingMenu}}" bindtap="hideSiblingMenu">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <h2>选择添加</h2>
+        <span class="close" bindtap="hideSiblingMenu">×</span>
+      </view>
+      <view class="modal-body">
+        <view class="sibling-option" bindtap="addBrother">
+          <view class="option-text">哥哥</view>
+        </view>
+        <view class="sibling-option" bindtap="addYoungerBrother">
+          <view class="option-text">弟弟</view>
+        </view>
+        <view class="sibling-option" bindtap="addSister">
+          <view class="option-text">姐姐</view>
+        </view>
+        <view class="sibling-option" bindtap="addYoungerSister">
+          <view class="option-text">妹妹</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 编辑家谱名称弹窗 -->
+  <view class="modal" wx:if="{{showEditFamilyName}}" bindtap="hideEditFamilyName">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <h2>编辑家谱名称</h2>
+        <span class="close" bindtap="hideEditFamilyName">×</span>
+      </view>
+      <view class="modal-body">
+        <input class="family-name-input" value="{{familyName}}" bindinput="onFamilyNameInput"/>
+        <button class="btn-save-family-name" bindtap="saveFamilyName">保存</button>
+      </view>
+    </view>
+  </view>

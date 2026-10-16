@@ -1,0 +1,134 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  background: #0a0a0a;
+}
+
+/* 底层：背景图 */
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+/* 功德值显示 */
+.merit-display {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 150rpx;
+}
+
+.merit-label {
+  font-size: 24rpx;
+  color: rgba(212, 165, 116, 0.8);
+}
+
+.merit-number {
+  font-size: 80rpx;
+  color: #d4a574;
+  font-weight: 600;
+}
+
+/* 祝福语：调整到颂钵顶端，保持较小距离 */
+.merit-text {
+  position: absolute;
+  top: 220rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-size: 32rpx;
+  color: #d4a574;
+  font-weight: 600;
+  text-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+/* 左下角功德值 + */
+.total-merit-display {
+  position: fixed;
+  bottom: 100rpx;
+  left: 40rpx;
+  font-size: 28rpx;
+  color: #888;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12rpx 24rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 右下角分享按钮 */
+.share-btn {
+  position: fixed;
+  bottom: 100rpx;
+  right: 40rpx;
+  padding: 16rpx 28rpx;
+  background: linear-gradient(135deg, #d4a574 0%, #b8956a 100%);
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(212, 165, 116, 0.4);
+  z-index: 100;
+  border: none;
+}
+
+.share-btn::after {
+  border: none;
+}
+
+.share-text {
+  font-size: 26rpx;
+  color: #fff;
+}
+
+/* 顶层：木槌容器（右侧边缘，部分可见） */
+.mallet-wrapper {
+  position: fixed;
+  right: -80rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 260rpx;
+  height: 420rpx;
+  z-index: 999;
+  display: block;
+  pointer-events: auto;
+  transform-origin: bottom center;
+}
+
+.mallet-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transform: rotate(-25deg);
+  pointer-events: none;
+}
+
+.mallet-img.animate {
+  animation: mallet-swing 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes mallet-swing {
+  0% { 
+    transform: rotate(-25deg);
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  40% { 
+    transform: rotate(-70deg);
+    animation-timing-function: cubic-bezier(0.55, 0.06, 0.68, 0.34);
+  }
+  100% { 
+    transform: rotate(-25deg);
+  }
+}

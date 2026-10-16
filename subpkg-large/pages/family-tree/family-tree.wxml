@@ -1,0 +1,18 @@
+<!--pages/family-tree/family-tree.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">主家谱家族关系树</view>
+    <view class="subtitle">当前视角：{{currentPersonName}}</view>
+  </view>
+
+  <scroll-view class="tree-scroll" scroll-y scroll-x enhanced show-scrollbar>
+    <view class="canvas-wrapper">
+      <canvas canvas-id="familyTreeCanvas" class="family-tree-canvas" style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;"></canvas>
+    </view>
+  </scroll-view>
+  
+  <view class="footer">
+    <button class="btn-save" bindtap="saveImage">保存图片</button>
+    <button class="btn-back" bindtap="goHome">返回</button>
+  </view>
+</view>

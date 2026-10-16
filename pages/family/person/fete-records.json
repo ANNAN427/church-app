@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "祭祀记录",
+  "usingComponents": {
+    "uni-datetime-picker": "../../../node-modules/@dcloudio/uni-ui/lib/uni-datetime-picker/uni-datetime-picker",
+    "st-icons": "../../../components/st-icons/st-icons",
+    "z-paging": "../../../node-modules/z-paging/components/z-paging/z-paging",
+    "main-container": "../../../components/main-container/main-container"
+  }
+}

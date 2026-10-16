@@ -1,0 +1,41 @@
+<main-container wx:if="{{k}}" u-s="{{['d']}}" class="customer-service-page" u-i="cs001-0" bind:__l="__l" u-p="{{k}}">
+  <view class="cs-container">
+    <!-- 页面标题 -->
+    <view class="cs-header">
+      <view class="cs-title-box">
+        <text class="cs-title">主内关怀</text>
+        <text class="cs-subtitle">聆听您的声音</text>
+      </view>
+    </view>
+
+    <!-- 客服内容 -->
+    <view class="cs-content">
+      <!-- 客服图标 -->
+      <view class="cs-icon-area">
+        <image class="cs-icon" src="/static/cs-icon.png" mode="aspectFit"/>
+      </view>
+
+      <!-- 欢迎文字 -->
+      <view class="cs-message">
+        <text class="cs-greeting">亲爱的弟兄姊妹，平安！</text>
+        
+        <text class="cs-text">我们深知，您在使用中或许有困惑，或许有感动想要分享，又或许只是一个小小的建议——无论是什么，我们都愿意侧耳倾听。</text>
+        
+        <text class="cs-text">本小程序完全公益免费，因热爱而创作，因呼召而坚持。您的反馈，是我们前行最大的支持与激励。</text>
+        
+        <view class="cs-highlight-box">
+          <text class="cs-text-highlight">愿每一次交流，都是一颗落进好土里的种子，生长出属天的平安与喜乐。</text>
+        </view>
+      </view>
+
+      <!-- 官方客服按钮 -->
+      <button class="cs-button" open-type="contact" session-from="weapp">
+        <view class="cs-button-content">
+          <text class="cs-button-icon">💬</text>
+          <text class="cs-button-text">联系关怀同工</text>
+          <text class="cs-button-sub">点击即聊，愿神祝福您！</text>
+        </view>
+      </button>
+    </view>
+  </view>
+</main-container>

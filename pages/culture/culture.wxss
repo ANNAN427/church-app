@@ -1,0 +1,205 @@
+/* pages/culture/culture.wxss */
+.container {
+  padding: 20rpx;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+.search-section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.search-title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.search-input-row {
+  display: flex;
+  gap: 15rpx;
+  margin-bottom: 15rpx;
+}
+
+.search-input {
+  flex: 1;
+  background: #f8f9fa;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  padding: 15rpx 20rpx;
+  min-height: 80rpx;
+  line-height: 50rpx;
+  font-size: 28rpx;
+}
+
+.btn-search {
+  background: linear-gradient(135deg, #5c6bdc 0%, #6c5ce7 100%);
+  color: white;
+  border: none;
+  border-radius: 8rpx;
+  padding: 15rpx 30rpx;
+  font-size: 28rpx;
+}
+
+.btn-switch,
+.btn-ai-config {
+  flex: 1;
+  background: linear-gradient(135deg, #fd79a8 0%, #fdcbf1 100%);
+  color: white;
+  border: none;
+  border-radius: 8rpx;
+  padding: 15rpx 25rpx;
+  font-size: 26rpx;
+  font-weight: bold;
+}
+
+.btn-ai-config {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.search-actions {
+  display: flex;
+  gap: 15rpx;
+  margin-top: 15rpx;
+}
+
+/* AI 状态显示 */
+.ai-status {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(92, 107, 220, 0.1) 0%, rgba(108, 92, 231, 0.1) 100%);
+  border-radius: 8rpx;
+  padding: 15rpx 20rpx;
+  margin-top: 15rpx;
+  border: 2rpx solid rgba(92, 107, 220, 0.3);
+}
+
+.ai-icon {
+  font-size: 32rpx;
+  margin-right: 10rpx;
+}
+
+.ai-text {
+  font-size: 24rpx;
+  color: #5c6bdc;
+  font-weight: 600;
+}
+
+.surname-detail {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.surname-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.surname-character {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5c6bdc 0%, #6c5ce7 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80rpx;
+  color: white;
+  margin-right: 20rpx;
+}
+
+.surname-info {
+  flex: 1;
+}
+
+.surname-title {
+  font-size: 36rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.surname-subtitle {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.detail-section {
+  margin-bottom: 30rpx;
+}
+
+.detail-title {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+  padding-left: 15rpx;
+  border-left: 4rpx solid #5c6bdc;
+}
+
+.detail-content {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.celebrity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.celebrity-item {
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  border-left: 4rpx solid #fd79a8;
+}
+
+.celebrity-name {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+}
+
+.celebrity-desc {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.story-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.story-item {
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  border-left: 4rpx solid #fdcbf1;
+}
+
+.story-title {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+}
+
+.story-brief {
+  font-size: 26rpx;
+  color: #666;
+}

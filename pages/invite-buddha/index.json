@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "main-container": "../../components/main-container/main-container"
+  }
+}

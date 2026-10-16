@@ -1,0 +1,1 @@
+<view class="data-v-dd7b224e" style="{{'width:' + f + ';' + ('height:' + g) + ';' + ('line-height:' + h)}}"><uni-icons wx:if="{{a}}" class="data-v-dd7b224e" u-i="dd7b224e-0" bind:__l="__l" u-p="{{b}}"/><uni-icons wx:elif="{{c}}" class="data-v-dd7b224e" u-s="{{['d']}}" u-i="dd7b224e-1" bind:__l="__l" u-p="{{e}}">{{d}}</uni-icons></view>

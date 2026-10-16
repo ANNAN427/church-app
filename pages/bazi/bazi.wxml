@@ -1,0 +1,145 @@
+<view class="bazi-container">
+  <view class="header-section">
+    <view class="title">生辰八字</view>
+    <view class="subtitle">解读时间编码，发现自我特质</view>
+  </view>
+  
+  <!-- 日期选择区域 -->
+  <view class="datetime-picker-section">
+    <view class="picker-label">请选择您的出生时间</view>
+    <view class="picker-trigger" bindtap="showPicker">
+      <view class="selected-datetime">
+        <text wx:if="{{selectedYear && selectedMonth && selectedDay && selectedHour}}">
+          {{selectedYear}}年 {{selectedMonth}}月 {{selectedDay}}日 {{selectedHour}}时
+        </text>
+        <text wx:else class="placeholder">点击选择出生年月日时</text>
+      </view>
+      <view class="picker-arrow">▼</view>
+    </view>
+  </view>
+  
+  <!-- 分析按钮 -->
+  <view class="analyze-section">
+    <button class="analyze-btn" bindtap="analyzeBazi" disabled="{{!selectedYear}}">
+      <text class="btn-text">AI 八字分析</text>
+    </button>
+  </view>
+  
+  <!-- 分析结果 -->
+  <view class="result-section" wx:if="{{analysisResult}}">
+    <view class="result-header">
+      <view class="result-title">八字排盘</view>
+      <view class="bazi-result">{{baziChars}}</view>
+    </view>
+    
+    <view class="result-content">
+      <view class="info-card">
+        <view class="card-title">基本信息</view>
+        <view class="info-grid">
+          <view class="info-item">
+            <text class="info-label">公历</text>
+            <text class="info-value">{{selectedYear}}年{{selectedMonth}}月{{selectedDay}}日{{selectedHour}}时</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">年柱</text>
+            <text class="info-value">{{nianZhu}}</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">月柱</text>
+            <text class="info-value">{{yueZhu}}</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">日柱</text>
+            <text class="info-value">{{riZhu}}</text>
+          </view>
+          <view class="info-item">
+            <text class="info-label">时柱</text>
+            <text class="info-value">{{shiZhu}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <view class="info-card">
+        <view class="card-title">五行分析</view>
+        <view class="wuxing-result">
+          <view class="wuxing-bar">
+            <view class="wuxing-item-result wuxing-wood-result">
+              <text class="wuxing-name">木</text>
+              <text class="wuxing-count">{{wuxing.mu}}</text>
+            </view>
+            <view class="wuxing-item-result wuxing-fire-result">
+              <text class="wuxing-name">火</text>
+              <text class="wuxing-count">{{wuxing.huo}}</text>
+            </view>
+            <view class="wuxing-item-result wuxing-earth-result">
+              <text class="wuxing-name">土</text>
+              <text class="wuxing-count">{{wuxing.tu}}</text>
+            </view>
+            <view class="wuxing-item-result wuxing-metal-result">
+              <text class="wuxing-name">金</text>
+              <text class="wuxing-count">{{wuxing.jin}}</text>
+            </view>
+            <view class="wuxing-item-result wuxing-water-result">
+              <text class="wuxing-name">水</text>
+              <text class="wuxing-count">{{wuxing.shui}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="info-card">
+        <view class="card-title">AI 命理分析</view>
+        <view class="ai-analysis">
+          <text class="analysis-text">{{analysisResult}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 基础知识区域（折叠） -->
+  <view class="knowledge-section" wx:if="{{!analysisResult}}">
+    <view class="info-card">
+      <view class="card-title">什么是生辰八字？</view>
+      <view class="card-content">
+        <view class="intro-text">什么是生辰八字？</view>
+        <view class="intro-text"></view>
+        <view class="intro-text">生辰八字，又称"四柱"，是中国传统干支纪时法的一种记录形式。它由一个人出生的年、月、日、时四个时间节点组成，每个节点分别对应一个天干和一个地支，合起来共八个汉字，故称"八字"。</view>
+        <view class="intro-text"></view>
+        <view class="intro-text">这种纪时方式历史悠久，常用于传统历书、节气推算、姓氏族谱记载以及个人生辰档案的整理。在民俗文化中，人们也借此了解时间与自然节律的对应关系。</view>
+        <view class="intro-text"></view>
+        <view class="intro-text">八字作为一种时间编码方式，承载了古人对天文历法的观察与归纳，是中华传统文化中的一项珍贵记录遗产。</view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="footer-section">
+    <view class="footer-text">本页为历法科普，无关命理。相信科学，拒绝迷信。</view>
+  </view>
+  
+  <!-- 日期选择器弹窗 -->
+  <view class="picker-overlay" wx:if="{{showDatePicker}}" bindtap="hidePicker">
+    <view class="picker-container" bindtap="stopPropagation">
+      <view class="picker-header">
+        <view class="picker-cancel" bindtap="hidePicker">取消</view>
+        <view class="picker-title">选择出生时间</view>
+        <view class="picker-confirm" bindtap="confirmPicker">确定</view>
+      </view>
+      <view class="picker-content">
+        <picker-view class="datetime-picker" indicator-style="height: 50px;" value="{{pickerValue}}" bindchange="onPickerChange">
+          <picker-view-column>
+            <view wx:for="{{years}}" wx:key="*this" class="picker-item">{{item}}年</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view wx:for="{{months}}" wx:key="*this" class="picker-item">{{item}}月</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view wx:for="{{days}}" wx:key="*this" class="picker-item">{{item}}日</view>
+          </picker-view-column>
+          <picker-view-column>
+            <view wx:for="{{hours}}" wx:key="*this" class="picker-item">{{item}}时</view>
+          </picker-view-column>
+        </picker-view>
+      </view>
+    </view>
+  </view>
+</view>

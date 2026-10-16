@@ -1,0 +1,60 @@
+<!-- pages/church-recommend/church-recommend.wxml -->
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <view class="header-icon">✝️</view>
+    <view class="header-title">教会推荐</view>
+    <view class="header-subtitle">探索全国 {{_allChurches.length}} 座基督教堂</view>
+  </view>
+
+  <!-- Search Bar -->
+  <view class="search-bar">
+    <view class="search-icon">🔍</view>
+    <input class="search-input" placeholder="搜索教堂名称或地址..." value="{{searchText}}" bindinput="onSearchInput" bindconfirm="onSearch" />
+    <view class="search-btn" bindtap="onSearch" wx:if="{{searchText}}">搜索</view>
+  </view>
+
+  <!-- Province Tabs (simplified names) -->
+  <scroll-view class="province-tabs" scroll-x="{{true}}" scroll-left="{{scrollLeft}}">
+    <view class="tabs-inner">
+      <view class="tab-item {{currentProvinceDisplay === '' ? 'active' : ''}}" bindtap="onProvinceTap" data-province="">全部</view>
+      <view class="tab-item {{currentProvinceDisplay === item ? 'active' : ''}}" bindtap="onProvinceTap" data-province="{{item}}" wx:for="{{provinceDisplayNames}}" wx:key="index">{{item}}</view>
+    </view>
+  </scroll-view>
+
+  <!-- Church List -->
+  <view class="church-list" wx:if="{{filteredChurches.length > 0}}">
+    <view class="church-card" bindtap="goToDetail" data-index="{{index}}" wx:for="{{filteredChurches}}" wx:key="name">
+      <view class="church-name">{{item.name}}</view>
+      <view class="church-info">
+        <view class="church-province">📍 {{item.province}}</view>
+        <view class="church-address" wx:if="{{item.address}}">{{item.address}}</view>
+      </view>
+      <view class="church-tags">
+        <view class="tag" wx:if="{{item.ticket}}">🎫 {{item.ticket}}</view>
+        <view class="tag" wx:if="{{item.openTime}}">🕐 {{item.openTime}}</view>
+      </view>
+      <view class="church-history" wx:if="{{item.history}}">
+        <text class="history-text">{{item.history}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Empty State -->
+  <view class="empty-state" wx:if="{{filteredChurches.length === 0 && searchText}}">
+    <view class="empty-icon">🔍</view>
+    <view class="empty-text">未找到 "{{searchText}}" 相关的教堂</view>
+    <view class="empty-hint">试试其他关键词吧</view>
+  </view>
+
+  <view class="empty-state" wx:if="{{filteredChurches.length === 0 && !searchText}}">
+    <view class="empty-icon">📋</view>
+    <view class="empty-text">暂无数据</view>
+  </view>
+
+  <!-- Stats -->
+  <view class="stats-bar">
+    <text>共 {{filteredChurches.length}} 座教堂</text>
+    <text wx:if="{{currentProvinceDisplay}}" class="stats-filter">| 筛选：{{currentProvinceDisplay}}</text>
+  </view>
+</view>

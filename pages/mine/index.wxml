@@ -1,0 +1,103 @@
+<!--pages/profile/profile.wxml (v33 - 功德明细版)-->
+<view class="container">
+  <!-- 登录状态提示 -->
+  <view class="login-section" wx:if="{{!hasLogin}}">
+    <view class="login-card">
+      <view class="login-icon"></view>
+      <view class="login-title">您还未登录</view>
+      <view class="login-desc">登录后可以保存功德、家谱等数据</view>
+      <button class="login-btn" bindtap="login">立即登录</button>
+    </view>
+  </view>
+  
+  <!-- 已登录显示用户信息 -->
+  <view class="profile-header" wx:else>
+    <view class="avatar-wrapper" bindtap="chooseAvatar">
+      <view class="avatar">{{avatarUrl ? '' : ''}}</view>
+      <image class="avatar-image" wx:if="{{avatarUrl}}" src="{{avatarUrl}}" mode="aspectFill"></image>
+    </view>
+    <view class="nickname" bindtap="chooseNickname">{{nickname || '设置昵称'}}</view>
+  </view>
+
+  <!-- 个人功德 - 点击查看详情 -->
+  <view class="merit-section">
+    <view class="merit-card" bindtap="showMeritDetail">
+      <view class="merit-top-row">
+        <view class="merit-icon-circle">
+          <text class="merit-emoji">🙏</text>
+        </view>
+        <view class="merit-info">
+          <view class="merit-title">个人功德</view>
+          <view class="merit-subtitle">积德行善 · 福报自来</view>
+        </view>
+      </view>
+      <view class="merit-divider"></view>
+      <view class="merit-stats">
+        <view class="stat-value">{{totalMerit}}</view>
+        <view class="stat-label">点击查看详情 ›</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 我的家谱 -->
+  <view class="family-trees-section">
+    <view class="section-header">
+      <view class="section-icon">📚</view>
+      <view class="section-title">我的家谱</view>
+    </view>
+    <view class="family-tree-list">
+      <view class="tree-item {{item.id === currentTreeId ? 'active' : ''}}" 
+            wx:for="{{familyTrees}}" wx:key="id" 
+            bindtap="switchFamilyTree" data-id="{{item.id}}">
+        <view class="tree-icon">🏛️</view>
+        <view class="tree-info">
+          <view class="tree-name">{{item.name}}</view>
+          <view class="tree-members">{{item.memberCount}} 位家庭成员</view>
+        </view>
+        <view class="tree-check" wx:if="{{item.id === currentTreeId}}">✓</view>
+        <view class="tree-edit" bindtap="editFamilyTree" data-id="{{item.id}}" data-stop="true">✏️</view>
+        <view class="tree-delete" bindtap="deleteFamilyTree" data-id="{{item.id}}" data-stop="true">🗑️</view>
+      </view>
+    </view>
+    <view class="add-tree-btn" bindtap="addFamilyTree">
+      <text class="add-icon">➕</text>
+      <text class="add-text">创建新家谱</text>
+    </view>
+  </view>
+
+  <!-- 功德明细弹窗 -->
+  <view class="merit-modal-overlay" wx:if="{{showMeritModal}}" bindtap="hideMeritDetail">
+    <view class="merit-modal" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">功德明细</text>
+        <text class="modal-close" bindtap="hideMeritDetail">✕</text>
+      </view>
+      <scroll-view class="modal-body" scroll-y>
+        <!-- 明细记录卡片列表 -->
+        <view class="merit-card-list">
+          <view class="merit-card" wx:for="{{meritLog}}" wx:key="index">
+            <view class="card-left">
+              <view class="card-action">{{item.action}}</view>
+              <view class="card-time">{{item.time}}</view>
+            </view>
+            <view class="card-right">
+              <view class="card-change {{item.isPositive ? 'log-positive' : 'log-negative'}}">
+                {{item.change}}
+              </view>
+              <view class="card-balance">
+                余额 {{item.balance}}
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 空状态 -->
+        <view class="log-empty" wx:if="{{meritLog.length === 0}}">
+          <text class="log-empty-text">暂无功德明细记录</text>
+        </view>
+      </scroll-view>
+      <view class="modal-footer">
+        <text class="modal-total">当前功德值：{{totalMerit}}</text>
+      </view>
+    </view>
+  </view>
+</view>

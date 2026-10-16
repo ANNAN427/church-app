@@ -1,0 +1,506 @@
+/* pages/wealth/wealth.wxss */
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+  color: #f5deb3;
+  padding: 20rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景装饰 */
+.container::before {
+  content: '';
+  position: absolute;
+  top: -100rpx;
+  right: -100rpx;
+  width: 300rpx;
+  height: 300rpx;
+  background: radial-gradient(circle, rgba(245, 222, 179, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+}
+
+.container::after {
+  content: '';
+  position: absolute;
+  bottom: -150rpx;
+  left: -150rpx;
+  width: 400rpx;
+  height: 400rpx;
+  background: radial-gradient(circle, rgba(212, 160, 23, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20rpx, 20rpx) scale(1.05); }
+}
+
+/* 主页面 */
+.main-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  text-align: center;
+  padding: 40rpx 20rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  color: #f5deb3;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: rgba(245, 222, 179, 0.7);
+  line-height: 1.6;
+}
+
+/* 显化账户 */
+.wealth-account {
+  width: 100%;
+  max-width: 600rpx;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border-radius: 30rpx;
+  padding: 60rpx 40rpx;
+  margin: 40rpx 0;
+  text-align: center;
+  border: 2rpx solid rgba(245, 222, 179, 0.2);
+  box-shadow: 0 10rpx 40rpx rgba(0, 0, 0, 0.3),
+              inset 0 1rpx 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.wealth-account::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(245, 222, 179, 0.05) 50%, transparent 70%);
+  transform: rotate(45deg);
+  animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.account-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
+}
+
+.account-icon {
+  font-size: 40rpx;
+  margin-right: 15rpx;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.account-label {
+  font-size: 24rpx;
+  color: rgba(245, 222, 179, 0.7);
+}
+
+.account-balance {
+  font-size: 80rpx;
+  color: #f5deb3;
+  font-weight: bold;
+  margin-bottom: 30rpx;
+  text-shadow: 0 0 20rpx rgba(245, 222, 179, 0.5);
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { text-shadow: 0 0 20rpx rgba(245, 222, 179, 0.5); }
+  50% { text-shadow: 0 0 30rpx rgba(245, 222, 179, 0.8), 0 0 40rpx rgba(212, 160, 23, 0.4); }
+}
+
+.account-today {
+  font-size: 24rpx;
+  color: rgba(245, 222, 179, 0.7);
+  margin-bottom: 30rpx;
+  background: linear-gradient(135deg, rgba(212, 160, 23, 0.15) 0%, rgba(245, 222, 179, 0.05) 100%);
+  border-radius: 20rpx;
+  padding: 20rpx;
+  border: 1rpx solid rgba(212, 160, 23, 0.3);
+}
+
+.today-badge {
+  font-size: 22rpx;
+  color: #ffd700;
+  margin-bottom: 10rpx;
+  font-weight: bold;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.today-detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30rpx;
+}
+
+.today-time {
+  color: rgba(245, 222, 179, 0.6);
+}
+
+.today-amount {
+  color: #4ade80;
+  font-weight: bold;
+  font-size: 28rpx;
+}
+
+.account-target {
+  font-size: 24rpx;
+  color: rgba(245, 222, 179, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.target-dot {
+  width: 16rpx;
+  height: 16rpx;
+  background: #f5deb3;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  width: 100%;
+  max-width: 600rpx;
+  display: flex;
+  gap: 30rpx;
+  margin: 40rpx 0;
+}
+
+.btn-start,
+
+.btn-subscribe {
+  margin: 20rpx 40rpx;
+  padding: 20rpx;
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: white;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  border: none;
+}
+.btn-subscribe::after {
+  border: none;
+}
+.btn-subscribe .btn-icon {
+  font-size: 36rpx;
+}
+.btn-subscribe:active {
+  background: linear-gradient(135deg, #45a049, #3d8b40);
+  transform: scale(0.98);
+}
+
+.btn-share {
+  flex: 1;
+  background: linear-gradient(135deg, #f5deb3 0%, #daa520 100%);
+  color: #1a1a2e;
+  border: none;
+  border-radius: 25rpx;
+  padding: 30rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15rpx;
+}
+
+.btn-start::before,
+.btn-share::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-start:active::before,
+.btn-share:active::before {
+  left: 100%;
+}
+
+.btn-start {
+  box-shadow: 0 10rpx 30rpx rgba(212, 160, 23, 0.4);
+}
+
+.btn-start:active {
+  transform: scale(0.95);
+  box-shadow: 0 5rpx 15rpx rgba(212, 160, 23, 0.3);
+}
+
+.btn-share {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  box-shadow: 0 10rpx 30rpx rgba(102, 126, 234, 0.4);
+}
+
+.btn-share:active {
+  transform: scale(0.95);
+  box-shadow: 0 5rpx 15rpx rgba(102, 126, 234, 0.3);
+}
+
+.btn-icon {
+  font-size: 36rpx;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5rpx); }
+}
+
+/* 修改计划 */
+.edit-plan {
+  width: 100%;
+  max-width: 600rpx;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 25rpx;
+  padding: 30rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: rgba(245, 222, 179, 0.7);
+  margin: 20rpx 0;
+  border: 2rpx solid rgba(245, 222, 179, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15rpx;
+  transition: all 0.3s ease;
+}
+
+.edit-plan:active {
+  transform: scale(0.98);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.edit-icon {
+  font-size: 32rpx;
+  animation: wiggle 1s ease-in-out infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}
+
+/* 今日仪式 */
+.today-ritual {
+  width: 100%;
+  max-width: 600rpx;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 25rpx;
+  padding: 40rpx;
+  text-align: center;
+  margin: 20rpx 0;
+  border: 2rpx solid rgba(245, 222, 179, 0.1);
+}
+
+.ritual-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.ritual-text {
+  font-size: 28rpx;
+  color: rgba(245, 222, 179, 0.8);
+}
+
+/* 设置页面 */
+.settings-page {
+  padding: 20rpx;
+}
+
+.back-btn {
+  font-size: 32rpx;
+  color: #f5deb3;
+  padding: 20rpx;
+  text-align: left;
+}
+
+.settings-form {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 30rpx;
+  padding: 40rpx;
+  margin-top: 20rpx;
+}
+
+.form-item {
+  margin-bottom: 40rpx;
+}
+
+.form-label {
+  font-size: 24rpx;
+  color: rgba(245, 222, 179, 0.6);
+  margin-bottom: 20rpx;
+}
+
+.form-input,
+.form-picker {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15rpx;
+  padding: 25rpx 30rpx;
+  min-height: 80rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  color: #f5deb3;
+  border: 2rpx solid rgba(245, 222, 179, 0.1);
+}
+
+.time-buttons {
+  display: flex;
+  gap: 20rpx;
+}
+
+.time-btn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(245, 222, 179, 0.6);
+  border: 2rpx solid rgba(245, 222, 179, 0.1);
+  border-radius: 15rpx;
+  padding: 25rpx;
+  font-size: 28rpx;
+}
+
+.time-btn.active {
+  background: linear-gradient(135deg, #f5deb3 0%, #daa520 100%);
+  color: #1a1a2e;
+  border-color: #f5deb3;
+}
+
+.btn-save {
+  width: 100%;
+  background: linear-gradient(135deg, #f5deb3 0%, #daa520 100%);
+  color: #1a1a2e;
+  border: none;
+  border-radius: 25rpx;
+  padding: 30rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-top: 40rpx;
+}
+
+/* 今日仪式页面 */
+.ritual-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, #0a0a1a 0%, #1a1a2e 100%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.ritual-header {
+  padding: 30rpx;
+  text-align: left;
+}
+
+.ritual-header .back-btn {
+  font-size: 32rpx;
+  color: #f5deb3;
+}
+
+.ritual-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+}
+
+.ritual-circle {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 222, 179, 0.2) 0%, transparent 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60rpx;
+  border: 2rpx solid rgba(245, 222, 179, 0.3);
+}
+
+.ritual-star {
+  font-size: 80rpx;
+  color: #f5deb3;
+}
+
+.ritual-title {
+  font-size: 40rpx;
+  color: #f5deb3;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.ritual-text {
+  font-size: 30rpx;
+  color: rgba(245, 222, 179, 0.8);
+  line-height: 1.8;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.ritual-hint {
+  font-size: 24rpx;
+  color: rgba(245, 222, 179, 0.5);
+  line-height: 1.6;
+  margin-bottom: 80rpx;
+  text-align: center;
+}
+
+.btn-submit {
+  width: 80%;
+  max-width: 600rpx;
+  background: linear-gradient(135deg, #f5d68f 0%, #d4a017 100%);
+  color: #fff;
+  border: none;
+  border-radius: 50rpx;
+  padding: 30rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+}

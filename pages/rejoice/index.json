@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "随喜功德",
+  "usingComponents": {
+    "main-container": "../../components/main-container/main-container"
+  }
+}

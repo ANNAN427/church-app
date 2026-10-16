@@ -1,0 +1,241 @@
+<!--pages/star-memory/star-memory.wxml-->
+<view class="star-memory-page">
+  <canvas class="star-canvas" type="2d" canvas-id="starCanvas" bindtouchstart="onTouchStart" bindtap="onCanvasTap"></canvas>
+
+  <!-- 底部提示 -->
+  <view class="tip-text">
+    <text class="tip-main">仰望星空，思念永恒</text>
+    <text class="tip-sub">点击下面守护星查看详情</text>
+  </view>
+
+  <!-- 守护星列表 -->
+  <scroll-view class="guardian-list" scroll-y>
+    <!-- 头部 -->
+    <view class="list-header">
+      <text class="list-title">✨ 守护星</text>
+    </view>
+
+    <!-- 星星横向滚动区域 -->
+    <scroll-view class="stars-scroll" scroll-x enable-flex>
+      <view class="stars-row">
+        <!-- 家谱守护星 -->
+        <view class="star-item" wx:for="{{deceasedPersons}}" wx:key="id"
+              bindtap="onPersonTap" data-index="{{index}}" data-type="family">
+          <view class="star-circle">⭐</view>
+          <text class="star-name">{{item.name}}</text>
+        </view>
+
+        <!-- 自定义守护星 -->
+        <view class="star-item" wx:for="{{customStars}}" wx:key="id"
+              bindtap="onPersonTap" data-index="{{index}}" data-type="custom">
+          <view class="star-circle custom">🌟</view>
+          <text class="star-name">{{item.name}}</text>
+        </view>
+
+        <!-- 创建按钮 -->
+        <view class="star-item create-star-btn" bindtap="showCreateForm">
+          <view class="star-circle add-icon">+</view>
+          <text class="star-name">创建守护星</text>
+        </view>
+      </view>
+    </scroll-view>
+  </scroll-view>
+
+  <!-- 详情弹窗 -->
+  <view class="detail-overlay" wx:if="{{showDetail}}" bindtap="hideDetail">
+    <view class="detail-card" catchtap="stopPropagation">
+      <view class="detail-header">
+        <text class="detail-name">{{selectedPerson.name}}</text>
+        <view class="detail-close" bindtap="hideDetail">✕</view>
+      </view>
+      <view class="detail-body">
+        <view class="detail-info" wx:if="{{selectedPerson.birthday}}">
+          <text class="info-label">诞辰</text>
+          <text class="info-value">{{selectedPerson.birthday}} {{selectedPerson.birthdayCal === 'lunar' ? '(农历)' : ''}}</text>
+        </view>
+        <view class="detail-info" wx:if="{{selectedPerson.deathday}}">
+          <text class="info-label">忌日</text>
+          <text class="info-value">{{selectedPerson.deathday}} {{selectedPerson.deathdayCal === 'lunar' ? '(农历)' : ''}}</text>
+        </view>
+        <view class="detail-info" wx:if="{{selectedPerson.memo}}">
+          <text class="info-label">备注</text>
+          <text class="info-value">{{selectedPerson.memo}}</text>
+        </view>
+        <view class="detail-edit-row">
+          <view class="date-with-cal">
+            <picker value="{{editBirthdayCal || 'solar'}}" range="{{['公历','农历']}}" bindchange="onEditBirthdayCalChange">
+              <view class="cal-type-tag">{{editBirthdayCal === 'lunar' ? '农历' : '公历'}}</view>
+            </picker>
+            <picker mode="date" value="{{editBirthday}}" bindchange="onEditBirthdayChange">
+              <view class="edit-date-btn">🎂 诞辰</view>
+            </picker>
+          </view>
+          <view class="date-with-cal">
+            <picker value="{{editDeathdayCal || 'solar'}}" range="{{['公历','农历']}}" bindchange="onEditDeathdayCalChange">
+              <view class="cal-type-tag">{{editDeathdayCal === 'lunar' ? '农历' : '公历'}}</view>
+            </picker>
+            <picker mode="date" value="{{editDeathday}}" bindchange="onEditDeathdayChange">
+              <view class="edit-date-btn">🕊️ 忌日</view>
+            </picker>
+          </view>
+          <view class="edit-letter-btn" catchtap="openLetter">💌 写信</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 纪念日弹窗 -->
+  <view class="memorial-overlay" wx:if="{{showMemorial}}" bindtap="closeMemorial">
+    <view class="memorial-card" catchtap="stopPropagation">
+      <view class="memorial-header">
+        <text class="memorial-name">{{selectedPerson.name}}</text>
+        <text class="memorial-subtitle">纪念信息</text>
+      </view>
+      <view class="memorial-body">
+        <view class="memorial-dates" wx:if="{{memorialInfo.birthday || memorialInfo.deathday}}">
+          <view class="memorial-date-item" wx:if="{{memorialInfo.birthday}}">
+            <text class="date-icon">🎂</text>
+            <text class="date-label">诞辰</text>
+            <text class="date-value">{{memorialInfo.birthday}} {{memorialInfo.birthdayCal === 'lunar' ? '(农历)' : ''}}</text>
+          </view>
+          <text class="memorial-divider" wx:if="{{memorialInfo.birthday && memorialInfo.deathday}}">|</text>
+          <view class="memorial-date-item" wx:if="{{memorialInfo.deathday}}">
+            <text class="date-icon">🕊️</text>
+            <text class="date-label">忌日</text>
+            <text class="date-value">{{memorialInfo.deathday}} {{memorialInfo.deathdayCal === 'lunar' ? '(农历)' : ''}}</text>
+          </view>
+        </view>
+        <view class="memorial-stats" wx:if="{{memorialInfo.age || memorialInfo.daysSince}}">
+          <view class="stat-item" wx:if="{{memorialInfo.age}}">
+            <text class="stat-number">{{memorialInfo.age}}</text>
+            <text class="stat-label">享年</text>
+          </view>
+          <view class="stat-divider" wx:if="{{memorialInfo.age && memorialInfo.daysSince}}"></view>
+          <view class="stat-item" wx:if="{{memorialInfo.daysSince}}">
+            <text class="stat-number">{{memorialInfo.daysSince}}</text>
+            <text class="stat-label">已离天数</text>
+          </view>
+        </view>
+        <view class="memorial-anniversary" wx:if="{{memorialInfo.nextAnniversary}}">
+          <text class="anniversary-text">
+            距离下一个 {{memorialInfo.nextAnniversaryType}} 还有 {{memorialInfo.nextAnniversary}} 天（{{memorialInfo.nextAnniversaryDate}}）
+          </text>
+        </view>
+      </view>
+      <view class="memorial-footer">
+        <view class="memorial-close-btn" bindtap="closeMemorial">关闭</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 写信弹窗 -->
+  <view class="letter-overlay" wx:if="{{showLetter}}" bindtap="closeLetter">
+    <view class="letter-card" catchtap="stopPropagation">
+      <view class="letter-header">
+        <text class="letter-title">✉️ 致 {{selectedPerson.name}}</text>
+        <view class="letter-close" bindtap="closeLetter">✕</view>
+      </view>
+      <view class="letter-body">
+        <textarea class="letter-input" placeholder="写下你想说的话..." bindinput="onLetterInput" value="{{letterContent}}" maxlength="2000" adjust-position="{{true}}"></textarea>
+      </view>
+      <view class="letter-history" wx:if="{{letterHistory.length > 0}}">
+        <text class="history-title">📬 历史信件</text>
+        <view class="history-item" wx:for="{{letterHistory}}" wx:key="id" bindtap="viewLetter" data-index="{{index}}">
+          <text class="history-date">{{item.date}}</text>
+          <text class="history-preview">{{item.preview}}</text>
+        </view>
+      </view>
+      <view class="letter-actions">
+        <view class="letter-btn" bindtap="saveLetter">💌 发送信件</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 信件查看弹窗 -->
+  <view class="letter-view-overlay" wx:if="{{showLetterView}}" bindtap="closeLetterView">
+    <view class="letter-view-card" catchtap="stopPropagation">
+      <view class="letter-view-header">
+        <text class="letter-view-title">致 {{currentLetter.toPerson}}</text>
+        <view class="letter-view-close" bindtap="closeLetterView">✕</view>
+      </view>
+      <text class="letter-view-date">{{currentLetter.date}}</text>
+      <view class="letter-view-content">{{currentLetter.content}}</view>
+      <view class="letter-view-actions">
+        <view class="letter-view-btn delete-btn" bindtap="deleteLetter">🗑️ 删除</view>
+        <view class="letter-view-btn close-view-btn" bindtap="closeLetterView">关闭</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 历史信件列表弹窗 -->
+  <view class="letter-history-overlay" wx:if="{{showLetterHistory}}" bindtap="closeLetterHistory">
+    <view class="letter-history-card" catchtap="stopPropagation">
+      <view class="letter-history-header">
+        <text class="letter-history-title">📬 {{selectedPerson.name}} 的历史信件</text>
+        <view class="letter-history-close" bindtap="closeLetterHistory">✕</view>
+      </view>
+      <view class="letter-history-body">
+        <view class="history-empty" wx:if="{{letterHistory.length === 0}}">
+          <text>还没有历史信件</text>
+        </view>
+        <view class="history-item" wx:for="{{letterHistory}}" wx:key="id" bindtap="viewLetter" data-index="{{index}}">
+          <text class="history-date">{{item.date}}</text>
+          <text class="history-preview">{{item.preview}}</text>
+        </view>
+      </view>
+      <view class="letter-history-footer">
+        <view class="letter-history-btn" bindtap="closeLetterHistory">关闭</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 创建守护星弹窗 -->
+  <view class="create-overlay" wx:if="{{showCreate}}" bindtap="hideCreateForm">
+    <view class="create-card" catchtap="stopPropagation">
+      <view class="create-header">
+        <text class="create-title">✨ 创建守护星</text>
+        <view class="create-close" bindtap="hideCreateForm">✕</view>
+      </view>
+      <view class="create-body">
+        <view class="form-item required">
+          <text class="form-label">名字</text>
+          <input class="form-input" placeholder="守护星的姓名或昵称" bindinput="onCreateNameInput" value="{{createForm.name}}" maxlength="20" adjust-position="{{true}}" confirm-type="done" />
+        </view>
+        <view class="form-item">
+          <text class="form-label">诞辰</text>
+          <view class="date-row">
+            <picker value="{{createForm.birthdayCal || 'solar'}}" range="{{['公历','农历']}}" bindchange="onCreateBirthdayCalChange">
+              <view class="cal-type-tag">{{createForm.birthdayCal === 'lunar' ? '农历' : '公历'}}</view>
+            </picker>
+            <picker mode="date" value="{{createForm.birthday}}" bindchange="onCreateBirthdayChange">
+              <view class="form-picker {{createForm.birthday ? 'has-value' : ''}}">
+                {{createForm.birthday || '请选择日期'}}
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view class="form-item">
+          <text class="form-label">忌日（选填）</text>
+          <view class="date-row">
+            <picker value="{{createForm.deathdayCal || 'solar'}}" range="{{['公历','农历']}}" bindchange="onCreateDeathdayCalChange">
+              <view class="cal-type-tag">{{createForm.deathdayCal === 'lunar' ? '农历' : '公历'}}</view>
+            </picker>
+            <picker mode="date" value="{{createForm.deathday}}" bindchange="onCreateDeathdayChange">
+              <view class="form-picker {{createForm.deathday ? 'has-value' : ''}}">
+                {{createForm.deathday || '请选择日期'}}
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view class="form-item">
+          <text class="form-label">备注（选填）</text>
+          <textarea class="form-textarea" placeholder="写一段纪念的话..." bindinput="onCreateMemoInput" value="{{createForm.memo}}" maxlength="500" adjust-position="{{true}}"></textarea>
+        </view>
+      </view>
+      <view class="create-actions">
+        <view class="create-cancel" bindtap="hideCreateForm">取消</view>
+        <view class="create-submit" bindtap="submitCreate">✨ 创建</view>
+      </view>
+    </view>
+  </view>
+</view>

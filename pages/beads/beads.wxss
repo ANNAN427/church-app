@@ -1,0 +1,115 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  background: #0d0d0d;
+  overflow: hidden;
+}
+
+/* 底层：固定背景（佛像图全程不动） */
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+.share-btn {
+  position: fixed;
+  bottom: 100rpx;
+  right: 40rpx;
+  padding: 16rpx 28rpx;
+  background: linear-gradient(135deg, #d4a574 0%, #b8956a 100%);
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(212, 165, 116, 0.4);
+  z-index: 200;
+  border: none;
+}
+
+.share-btn::after {
+  border: none;
+}
+
+.share-text {
+  font-size: 26rpx;
+  color: #fff;
+}
+
+.count-display {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  padding: 20rpx;
+}
+
+.count {
+  font-size: 48rpx;
+  color: #d4a574;
+  font-weight: 600;
+}
+
+/* 左下角总功德 */
+.total-merit-display {
+  position: fixed;
+  bottom: 100rpx;
+  left: 40rpx;
+  font-size: 28rpx;
+  color: #888;
+  z-index: 200;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12rpx 24rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 中层：隐形引导线（垂直路径，限定珠子滑动轨迹） */
+.guide-track {
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  width: 100rpx;
+  height: 75vh;
+  z-index: 50;
+  /* 调试时可取消注释查看引导线 */
+  /* border: 1px dashed rgba(212, 165, 116, 0.3); */
+}
+
+/* 上层：单颗独立珠子 */
+.bead-item {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140rpx;
+  height: 140rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  touch-action: none;
+  will-change: transform;
+}
+
+.bead-item.dragging {
+  z-index: 150;
+}
+
+.bead-img {
+  width: 100%;
+  height: 100%;
+  /* 透明背景 PNG 已自带阴影效果 */
+  filter: drop-shadow(0 4rpx 8rpx rgba(0, 0, 0, 0.3));
+}
+
+/* 拖动时的视觉效果 */
+.bead-item.dragging .bead-img {
+  filter: drop-shadow(0 8rpx 16rpx rgba(0, 0, 0, 0.5)) brightness(1.1);
+}

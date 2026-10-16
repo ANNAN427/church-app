@@ -1,0 +1,113 @@
+<!--pages/wealth/wealth.wxml-->
+<view class="container">
+  <!-- 主页面 -->
+  <view class="main-page" wx:if="{{!showSettings}}">
+    <view class="header">
+      <view class="title">💰 日进斗金显示器</view>
+      <view class="subtitle">每天自动入账的来财小仪式<br/>让想要的钱每天靠近一点</view>
+    </view>
+
+    <!-- 显化账户 -->
+    <view class="wealth-account">
+      <view class="account-header">
+        <view class="account-icon">💳</view>
+        <view class="account-label">我的显化账户</view>
+      </view>
+      <view class="account-balance">¥{{balance}}</view>
+      <view class="account-today" wx:if="{{todayAmount > 0}}">
+        <view class="today-badge">✨ 今日入账</view>
+        <view class="today-detail">
+          <view class="today-time">{{todayTime}}</view>
+          <view class="today-amount">+¥{{todayAmount}}</view>
+        </view>
+      </view>
+      <view class="account-today" wx:else>
+        <view class="today-badge">⏰ 等待入账</view>
+      </view>
+      <view class="account-target">
+        <view class="target-dot"></view>
+        目标：¥{{targetAmount}}
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button class="btn-start" bindtap="showRitualModal">
+        <view class="btn-icon">🌟</view>
+        开始显化
+      </button>
+    <button class="btn-share" open-type="share">
+        <view class="btn-icon">📤</view>
+        分享给朋友
+      </button>
+    </view>
+
+    <!-- 修改计划 -->
+    <view class="edit-plan" bindtap="editPlan">
+      <view class="edit-icon">✏️</view>
+      点我修改显化计划
+    </view>
+
+  </view>
+
+  <!-- 设置页面 -->
+  <view class="settings-page" wx:if="{{showSettings}}">
+    <view class="header">
+      <view class="back-btn" bindtap="backToMain">← 设置</view>
+    </view>
+
+    <view class="settings-form">
+      <view class="form-item">
+        <view class="form-label">我想显化</view>
+        <input class="form-input" placeholder="请输入目标金额" value="{{targetAmount}}" bindinput="onTargetInput" type="number"/>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">初始显化余额</view>
+        <input class="form-input" placeholder="请输入初始金额" value="{{initAmount}}" bindinput="onInitInput" type="number"/>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">每日自动入账</view>
+        <input class="form-input" placeholder="请输入每日入账金额" value="{{dailyAmount}}" bindinput="onDailyInput" type="number"/>
+      </view>
+
+      <view class="form-item">
+        <view class="form-label">到账时间</view>
+        <view class="time-buttons">
+          <button class="time-btn {{timeType === 'fixed' ? 'active' : ''}}" bindtap="setTimeType" data-type="fixed">固定时间</button>
+          <button class="time-btn {{timeType === 'random' ? 'active' : ''}}" bindtap="setTimeType" data-type="random">随机时间</button>
+        </view>
+      </view>
+
+      <view class="form-item" wx:if="{{timeType === 'fixed'}}">
+        <view class="form-label">固定时间</view>
+        <picker mode="time" value="{{fixedTime}}" bindchange="onTimeChange">
+          <view class="form-picker">{{fixedTime}}</view>
+        </picker>
+      </view>
+
+      <button class="btn-save" bindtap="saveSettings">保存设置</button>
+    </view>
+  </view>
+
+  <!-- 今日仪式页面 -->
+  <view class="ritual-page" wx:if="{{showRitualModal}}">
+    <view class="ritual-header">
+      <view class="back-btn" bindtap="hideRitual">← 今日仪式</view>
+    </view>
+    <view class="ritual-content" catchtap="stopPropagation">
+      <view class="ritual-circle">
+        <view class="ritual-star">✨</view>
+      </view>
+      <view class="ritual-title">我允许财富</view>
+      <view class="ritual-text">以轻松、清晰、善意的方式</view>
+      <view class="ritual-text">流向我。</view>
+      <view class="ritual-hint">
+        深呼吸一次，想象明天这笔钱已经到账。<br/>
+        然后把注意力放回今天可以做的一件小事。
+      </view>
+      <button class="btn-submit" bindtap="submitRitual">提交来财订单</button>
+    </view>
+  </view>
+</view>

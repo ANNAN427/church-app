@@ -1,0 +1,59 @@
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <view class="header-icon">🏛️</view>
+    <view class="header-title">佛教寺庙景点介绍</view>
+    <view class="header-subtitle">探索全国 1382 座古刹名寺</view>
+    </view>
+
+  <!-- Search Bar -->
+  <view class="search-bar">
+    <view class="search-icon">🔍</view>
+    <input class="search-input" placeholder="搜索寺庙名称或地址..." value="{{searchText}}" bindinput="onSearchInput" bindconfirm="onSearch" />
+    <view class="search-btn" bindtap="onSearch" wx:if="{{searchText}}">搜索</view>
+  </view>
+
+  <!-- Province Tabs (simplified names) -->
+  <scroll-view class="province-tabs" scroll-x="{{true}}" scroll-left="{{scrollLeft}}">
+    <view class="tabs-inner">
+      <view class="tab-item {{currentProvinceDisplay === '' ? 'active' : ''}}" bindtap="onProvinceTap" data-province="">全部</view>
+      <view class="tab-item {{currentProvinceDisplay === item ? 'active' : ''}}" bindtap="onProvinceTap" data-province="{{item}}" wx:for="{{provinceDisplayNames}}" wx:key="index">{{item}}</view>
+    </view>
+  </scroll-view>
+
+  <!-- Temple List -->
+  <view class="temple-list" wx:if="{{filteredTemples.length > 0}}">
+    <view class="temple-card" bindtap="goToDetail" data-index="{{index}}" wx:for="{{filteredTemples}}" wx:key="name">
+      <view class="temple-name">{{item.name}}</view>
+      <view class="temple-info">
+        <view class="temple-province">📍 {{item.province}}</view>
+        <view class="temple-address" wx:if="{{item.address}}">{{item.address}}</view>
+      </view>
+      <view class="temple-tags">
+        <view class="tag" wx:if="{{item.ticket}}">🎫 {{item.ticket}}</view>
+        <view class="tag" wx:if="{{item.openTime}}">🕐 {{item.openTime}}</view>
+      </view>
+      <view class="temple-features" wx:if="{{item.features}}">
+        <text class="feature-text">{{item.features}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Empty State -->
+  <view class="empty-state" wx:if="{{filteredTemples.length === 0 && searchText}}">
+    <view class="empty-icon">🔍</view>
+    <view class="empty-text">未找到 "{{searchText}}" 相关的寺庙</view>
+    <view class="empty-hint">试试其他关键词吧</view>
+  </view>
+
+  <view class="empty-state" wx:if="{{filteredTemples.length === 0 && !searchText}}">
+    <view class="empty-icon">📋</view>
+    <view class="empty-text">暂无数据</view>
+  </view>
+
+  <!-- Stats -->
+  <view class="stats-bar">
+    <text>共 {{filteredTemples.length}} 座寺庙</text>
+    <text wx:if="{{currentProvinceDisplay}}" class="stats-filter">| 筛选：{{currentProvinceDisplay}}</text>
+  </view>
+</view>

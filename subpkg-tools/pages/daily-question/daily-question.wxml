@@ -1,0 +1,81 @@
+<!--subpkg-zen/pages/daily-gua/daily-gua.wxml-->
+<view class="container">
+  <!-- Stars Background -->
+  <view class="stars-bg"></view>
+
+  <!-- Bagua Background (fixed center) -->
+  <image class="bagua-bg" src="https://1689.1r1zhux.com/beads/bagua.png" mode="aspectFill"></image>
+
+  <!-- Content Overlay -->
+  <view class="content-overlay">
+
+    <!-- Page Title -->
+    <view class="page-title">
+      <text class="title-main">每日一问</text>
+      <text class="title-sub">随机一爻 静观其意</text>
+    </view>
+
+    <!-- Coins Section (absolute at bagua bottom) -->
+    <view class="coin-section">
+      <view wx:for="{{coins}}" wx:for-item="coin" wx:key="index" class="coin {{coin.isFlipping ? 'flipping' : ''}}">
+        <image src="{{coin.isHead ? '/static/coin-head.png' : '/static/coin-tail.png'}}" class="coin-img" mode="aspectFill"></image>
+      </view>
+    </view>
+
+    <!-- Progress Bar (at top of page, during casting) -->
+    <view wx:if="{{progress > 0}}" class="long-press-progress">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width: {{progress}}%"></view>
+      </view>
+      <text class="progress-text">起卦中... {{progress}}%</text>
+    </view>
+
+    <!-- Turtle Interactive Area - absolute below bagua -->
+    <view class="turtle-wrapper {{pressing ? 'pressing' : ''}} {{shaking ? 'shaking' : ''}}"
+        catchtouchstart="onTouchStart"
+        catchtouchend="onTouchEnd"
+        catchtouchcancel="onTouchEnd">
+      <!-- Golden ring frame -->
+      <view class="turtle-ring"></view>
+      <view class="turtle-ring-inner"></view>
+      <!-- Energy ripple rings -->
+      <view class="energy-ring ring-1" wx:if="{{pressing}}"></view>
+      <view class="energy-ring ring-2" wx:if="{{pressing}}"></view>
+      <view class="energy-ring ring-3" wx:if="{{pressing}}"></view>
+      <!-- Turtle image (local transparent PNG) -->
+      <view class="turtle-mask">
+        <image class="turtle-interactive"
+            src="https://1689.1r1zhux.com/beads/wugui.png"
+            mode="aspectFit"></image>
+      </view>
+      <!-- Glow under turtle -->
+      <view class="turtle-glow {{pressing ? 'glow-active' : ''}}"></view>
+    </view>
+
+    <!-- Action Tip -->
+    <view class="action-tip {{pressing ? 'tip-hidden' : ''}}">👆 长按神龟 静观其意</view>
+  </view>
+
+  <!-- Result Modal -->
+  <view wx:if="{{showResult}}" class="result-modal">
+    <view class="modal-overlay-bg" bindtap="closeResult"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="gua-char">{{result.guaName}}</text>
+        <text class="gua-num">第{{result.guaNum}}卦</text>
+      </view>
+      <view class="gua-poem">
+        <text wx:for="{{result.guaCiLines}}" wx:key="index" class="poem-line">{{item}}</text>
+      </view>
+      <view wx:if="{{result.tuanCi}}" class="gua-detail-box">
+        <view class="detail-label">曰</view>
+        <text class="detail-text">{{result.tuanCi}}</text>
+      </view>
+      <view wx:if="{{result.xiangCi}}" class="gua-detail-box">
+        <view class="detail-label">象曰</view>
+        <text class="detail-text">{{result.xiangCi}}</text>
+      </view>
+      <view class="restart-btn" bindtap="restart">🔮 再来一次</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,190 @@
+/* pages/almanac/almanac.wxss */
+.container {
+  padding: 30rpx;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+.header-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20rpx;
+  padding: 40rpx 30rpx;
+  margin-bottom: 30rpx;
+  text-align: center;
+  color: white;
+  box-shadow: 0 10rpx 30rpx rgba(102, 126, 234, 0.3);
+}
+
+.header-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-bottom: 30rpx;
+}
+
+.date-picker {
+  font-size: 32rpx;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 20rpx 40rpx;
+  border-radius: 50rpx;
+  display: inline-block;
+}
+
+/* 加载状态 */
+.loading-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 40rpx;
+  background: white;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.loading-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.almanac-section {
+  display: flex;
+  flex-direction: column;
+  gap: 25rpx;
+  margin-bottom: 30rpx;
+}
+
+.info-card,
+.suitable-card,
+.avoidance-card,
+.detail-card,
+.analysis-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 30rpx;
+  color: #666;
+  font-weight: bold;
+}
+
+.info-value {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.card-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-bottom: 25rpx;
+  text-align: center;
+}
+
+.card-title.suitable {
+  color: #27ae60;
+}
+
+.card-title.avoidance {
+  color: #e74c3c;
+}
+
+.card-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rpx;
+}
+
+.tag {
+  background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+  color: white;
+  padding: 15rpx 25rpx;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+}
+
+.tag.avoidance-tag {
+  background: linear-gradient(135deg, #e74c3c 0%, #e74c3c 100%);
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: 30rpx;
+  color: #666;
+  font-weight: bold;
+  min-width: 200rpx;
+}
+
+.detail-value {
+  font-size: 28rpx;
+  color: #333;
+  text-align: right;
+  flex: 1;
+}
+
+.analysis-card {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border: 2rpx solid #667eea;
+}
+
+.analysis-title {
+  font-size: 32rpx;
+  color: #667eea;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.analysis-content {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.btn-share {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 15rpx;
+  padding: 25rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-top: 20rpx;
+  box-shadow: 0 8rpx 20rpx rgba(102, 126, 234, 0.3);
+}

@@ -1,0 +1,58 @@
+<!--pages/naming/detail.wxml-->
+<view class="container">
+  <view class="name-header">
+    <view class="name-text">{{nameInfo.name}}</view>
+    <view class="name-score">{{nameInfo.score}}分</view>
+  </view>
+
+  <view class="detail-card">
+    <view class="card-title">📖 名字寓意</view>
+    <view class="card-content">{{nameInfo.meaning}}</view>
+  </view>
+
+  <view class="detail-card">
+    <view class="card-title">🔥 五行分析</view>
+    <view class="wuxing-display">
+      <view class="wuxing-item" wx:for="{{nameInfo.wuxingDetail}}" wx:key="element">
+        <view class="element-icon {{item.type}}">{{item.icon}}</view>
+        <view class="element-name">{{item.name}}</view>
+        <view class="element-bar">
+          <view class="element-fill {{item.type}}" style="width: {{item.percent}}%"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="detail-card">
+    <view class="card-title">📊 姓名评分</view>
+    <view class="score-display">
+      <view class="score-circle">
+        <view class="score-number">{{nameInfo.score}}</view>
+        <view class="score-label">综合评分</view>
+      </view>
+      <view class="score-details">
+        <view class="score-item">
+          <text class="score-label-small">音律</text>
+          <text class="score-value">{{nameInfo.scoreDetail.tone}}</text>
+        </view>
+        <view class="score-item">
+          <text class="score-label-small">寓意</text>
+          <text class="score-value">{{nameInfo.scoreDetail.meaning}}</text>
+        </view>
+        <view class="score-item">
+          <text class="score-label-small">五行</text>
+          <text class="score-value">{{nameInfo.scoreDetail.wuxing}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="detail-card">
+    <view class="card-title">✨ 名字解读</view>
+    <view class="interpretation">
+      <text>{{nameInfo.interpretation}}</text>
+    </view>
+  </view>
+
+  <button class="btn-share" bindtap="shareName">📤 分享此名字</button>
+</view>

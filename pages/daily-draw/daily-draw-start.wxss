@@ -1,0 +1,97 @@
+/* pages/daily-draw/daily-draw-start.wxss */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background: #f7f7f7;
+  position: relative;
+}
+
+.header {
+  padding-top: 120rpx;
+  padding-bottom: 60rpx;
+}
+
+.title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #333;
+  letter-spacing: 8rpx;
+}
+
+.cards {
+  display: flex;
+  margin-top: 40rpx;
+  margin-bottom: 50rpx;
+}
+
+.cards .num-card {
+  margin: 0 15rpx;
+}
+
+.num-card {
+  width: 160rpx;
+  height: 180rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+}
+
+.num-text {
+  font-size: 120rpx;
+  font-weight: bold;
+  color: #c45a3c;
+}
+
+.disclaimer {
+  width: 520rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx 30rpx;
+  margin-bottom: 80rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
+}
+
+.dis-text {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.btn-wrapper {
+  position: absolute;
+  bottom: 120rpx;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0 40rpx;
+}
+
+.draw-btn {
+  width: 100%;
+  height: 100rpx;
+  background: linear-gradient(135deg, #fdf6ee, #f5e6d3);
+  border-radius: 50rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.06);
+}
+
+.draw-btn.disabled {
+  opacity: 0.6;
+}
+
+.btn-text {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #c45a3c;
+  letter-spacing: 4rpx;
+}

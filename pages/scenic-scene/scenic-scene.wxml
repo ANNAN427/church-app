@@ -1,0 +1,23 @@
+<view class="container">
+  <view class="header">
+    <view class="header-icon">🏞️</view>
+    <view class="header-title">静心景点</view>
+    <view class="header-subtitle">探索心灵栖息的圣地</view>
+  </view>
+
+  <view class="scene-list">
+    <view class="scene-card" wx:for="{{scenes}}" wx:key="id">
+      <view class="scene-header" style="background: {{item.color}};">
+        <view class="scene-icon">{{item.icon}}</view>
+      </view>
+      <view class="scene-body">
+        <view class="scene-name">{{item.name}}</view>
+        <view class="scene-location">📍 {{item.location}}</view>
+        <view class="scene-desc">{{item.desc}}</view>
+        <view class="scene-tags">
+          <view class="tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

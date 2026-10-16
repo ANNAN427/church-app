@@ -1,0 +1,145 @@
+<!--pages/family-tree/family-tree.wxml-->
+<view class="container">
+  <!-- 顶部标题 -->
+  <view class="header">
+    <view class="header-title">{{rawFamilyName}}家族关系树</view>
+    <view class="header-subtitle">当前视角：{{currentPerson ? currentPerson.name : ''}}</view>
+    <view class="header-controls">
+      <button class="btn-reset" bindtap="resetView">重置视图</button>
+      <button class="btn-home" bindtap="goHome">返回</button>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!hasData}}">
+    <view class="empty-icon">🌳</view>
+    <view class="empty-text">暂无家谱数据</view>
+    <view class="empty-hint">请先在主页面添加家庭成员</view>
+    <button class="btn-go-home" bindtap="goHome">返回首页</button>
+  </view>
+
+  <!-- Canvas 家谱树 -->
+  <scroll-view class="tree-scroll" scroll-x scroll-y wx:if="{{hasData}}">
+    <view class="canvas-wrapper">
+      <canvas 
+        canvas-id="familyTreeCanvas"
+        class="family-canvas"
+        style="width: {{canvasWidth}}px; height: {{canvasHeight}}px;"
+      />
+      
+      <!-- 点击区域（透明覆盖层） -->
+      <view class="touch-layer">
+        <view 
+          class="touch-node" 
+          wx:for="{{treeNodes}}" 
+          wx:key="id" 
+          wx:for-item="node"
+          style="left: {{node.x}}px; top: {{node.y}}px;"
+          data-id="{{node.id}}"
+          bindtap="onMemberTap"
+        ></view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 图例说明 -->
+  <view class="legend" wx:if="{{hasData}}">
+    <view class="legend-item">
+      <view class="legend-line parent-child"></view>
+      <text>父母子女</text>
+    </view>
+    <view class="legend-item">
+      <view class="legend-line spouse"></view>
+      <text>夫妻</text>
+    </view>
+    <view class="legend-item">
+      <view class="legend-line sibling"></view>
+      <text>兄弟姐妹</text>
+    </view>
+  </view>
+
+  <!-- 十字架弹窗 -->
+  <view class="modal" wx:if="{{crossData}}" bindtap="closeCross">
+    <view class="modal-content cross-modal" catchtap="stopPropagation">
+      <view class="modal-header">
+        <view class="modal-title">{{selectedMember ? selectedMember.name : ''}}的直属关系</view>
+        <view class="modal-close" bindtap="closeCross">✕</view>
+      </view>
+      
+      <view class="cross-container">
+        <!-- 上方：父母 -->
+        <view class="cross-top">
+          <view class="cross-label">父母</view>
+          <view class="cross-cards">
+            <view class="cross-card" wx:if="{{crossData.father}}" data-id="{{crossData.father.id}}" bindtap="onMemberTap">
+              <view class="cross-avatar male">👨</view>
+              <view class="cross-name">{{crossData.father.name}}</view>
+              <view class="cross-relation">父亲</view>
+            </view>
+            <view class="cross-card" wx:if="{{crossData.mother}}" data-id="{{crossData.mother.id}}" bindtap="onMemberTap">
+              <view class="cross-avatar female">👩</view>
+              <view class="cross-name">{{crossData.mother.name}}</view>
+              <view class="cross-relation">母亲</view>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 中间：当前人 -->
+        <view class="cross-middle">
+          <view class="cross-current">
+            <view class="cross-avatar {{selectedMember.gender === 'male' ? 'male' : 'female'}}">
+              {{selectedMember.gender === 'male' ? '👨' : '👩'}}
+            </view>
+            <view class="cross-name">{{selectedMember.name}}</view>
+          </view>
+          
+          <!-- 左侧：兄弟姐妹 -->
+          <view class="cross-left" wx:if="{{crossData.siblings.length > 0}}">
+            <view class="cross-label">兄弟姐妹</view>
+            <view class="cross-cards-horizontal">
+              <view class="cross-card-small" wx:for="{{crossData.siblings}}" wx:key="id" wx:for-item="sibling"
+                    data-id="{{sibling.id}}" bindtap="onMemberTap">
+                <view class="cross-avatar {{sibling.gender === 'male' ? 'male' : 'female'}}">
+                  {{sibling.gender === 'male' ? '👨' : '👩'}}
+                </view>
+                <view class="cross-name">{{sibling.name}}</view>
+              </view>
+            </view>
+          </view>
+          
+          <!-- 右侧：配偶 -->
+          <view class="cross-right" wx:if="{{crossData.spouse}}">
+            <view class="cross-label">配偶</view>
+            <view class="cross-card" data-id="{{crossData.spouse.id}}" bindtap="onMemberTap">
+              <view class="cross-avatar {{crossData.spouse.gender === 'male' ? 'male' : 'female'}}">
+                {{crossData.spouse.gender === 'male' ? '👨' : '👩'}}
+              </view>
+              <view class="cross-name">{{crossData.spouse.name}}</view>
+              <view class="cross-relation">{{crossData.spouse.gender === 'male' ? '丈夫' : '妻子'}}</view>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 下方：子女 -->
+        <view class="cross-bottom" wx:if="{{crossData.children.length > 0}}">
+          <view class="cross-label">子女</view>
+          <view class="cross-cards">
+            <view class="cross-card" wx:for="{{crossData.children}}" wx:key="id" wx:for-item="child"
+                  data-id="{{child.id}}" bindtap="onMemberTap">
+              <view class="cross-avatar {{child.gender === 'male' ? 'male' : 'female'}}">
+                {{child.gender === 'male' ? '👨' : '👩'}}
+              </view>
+              <view class="cross-name">{{child.name}}</view>
+              <view class="cross-relation">{{child.gender === 'male' ? '儿子' : '女儿'}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="modal-footer">
+        <button class="btn-switch" bindtap="switchToMember" data-id="{{selectedMember.id}}">切换到此成员</button>
+        <button class="btn-close" bindtap="closeCross">关闭</button>
+      </view>
+    </view>
+  </view>
+</view>

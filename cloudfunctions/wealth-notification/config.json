@@ -1,0 +1,9 @@
+{
+  "triggers": [
+    {
+      "name": "wealthNotifyTimer",
+      "type": "timer",
+      "config": "0 * * * * * *"
+    }
+  ]
+}

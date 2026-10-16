@@ -1,0 +1,117 @@
+<view class="container">
+  <!-- Admin Header -->
+  <view class="admin-header">
+    <view class="header-icon">⚙️</view>
+    <view class="header-title">寺庙内容维护后台</view>
+    <view class="header-subtitle">修改寺庙信息并保存到云端</view>
+  </view>
+
+  <!-- Search Temple -->
+  <view class="search-section">
+    <view class="search-bar">
+      <input class="search-input" placeholder="输入寺庙名称搜索..." value="{{searchText}}" bindinput="onSearchInput" bindconfirm="searchTemple" />
+      <view class="search-btn" bindtap="searchTemple">搜索</view>
+    </view>
+  </view>
+
+  <!-- Search Results -->
+  <scroll-view class="result-list" scroll-y="{{true}}" wx:if="{{searchResults.length > 0 && !editingTemple}}">
+    <view class="result-item" bindtap="selectTemple" data-index="{{index}}" wx:for="{{searchResults}}" wx:key="name">
+      <view class="result-name">{{item.name}}</view>
+      <view class="result-info">{{item.province}} | {{item.address || '暂无地址'}}</view>
+    </view>
+  </scroll-view>
+
+  <!-- Edit Form -->
+  <view class="edit-form" wx:if="{{editingTemple}}">
+    <view class="form-header">
+      <view class="form-title">编辑：{{editingTemple.name}}</view>
+      <view class="form-cancel" bindtap="cancelEdit">取消</view>
+    </view>
+
+    <view class="form-group">
+      <view class="form-label">寺庙名称</view>
+      <input class="form-input" value="{{formData.name}}" bindinput="onFormInput" data-field="name" />
+    </view>
+
+    <view class="form-group">
+      <view class="form-label">省份</view>
+      <input class="form-input" value="{{formData.province}}" bindinput="onFormInput" data-field="province" />
+    </view>
+
+    <view class="form-group">
+      <view class="form-label">📍 地址</view>
+      <textarea class="form-textarea" value="{{formData.address}}" bindinput="onFormInput" data-field="address" maxlength="200" />
+    </view>
+
+    <view class="form-group">
+      <view class="form-label">📞 联系电话</view>
+      <input class="form-input" value="{{formData.phone}}" bindinput="onFormInput" data-field="phone" />
+    </view>
+
+    <view class="form-group">
+      <view class="form-label">🎫 门票信息</view>
+      <input class="form-input" value="{{formData.ticket}}" bindinput="onFormInput" data-field="ticket" />
+    </view>
+
+    <view class="form-group">
+      <view class="form-label">🕐 开放时间</view>
+      <input class="form-input" value="{{formData.openTime}}" bindinput="onFormInput" data-field="openTime" />
+    </view>
+
+    <view class="form-group">
+      <view class="form-label">📜 历史沿革</view>
+      <textarea class="form-textarea form-textarea-large" value="{{formData.history}}" bindinput="onFormInput" data-field="history" maxlength="1000" />
+    </view>
+
+    <view class="form-group">
+      <view class="form-label">🏛️ 建筑格局</view>
+      <textarea class="form-textarea form-textarea-large" value="{{formData.architecture}}" bindinput="onFormInput" data-field="architecture" maxlength="1000" />
+    </view>
+
+    <view class="form-group">
+      <view class="form-label">✨ 主要特色</view>
+      <textarea class="form-textarea" value="{{formData.features}}" bindinput="onFormInput" data-field="features" maxlength="500" />
+    </view>
+
+    <view class="form-group">
+      <view class="form-label">📸 寺庙图片</view>
+      <!-- 已上传图片预览 -->
+      <view class="image-preview-list" wx:if="{{uploadedImages.length > 0}}">
+        <view class="preview-item" wx:for="{{uploadedImages}}" wx:key="index">
+          <image class="preview-img" src="{{item.url}}" mode="aspectFill" />
+          <view class="preview-delete" bindtap="removeImage" data-index="{{index}}">✕</view>
+        </view>
+      </view>
+      <!-- 上传按钮 -->
+      <view class="upload-actions">
+        <view class="upload-btn" bindtap="uploadImage">📷 从相册选择</view>
+        <view class="upload-btn camera-btn" bindtap="uploadImageCamera">📸 拍照上传</view>
+      </view>
+      <view class="upload-hint">支持jpg/png，单张不超过5MB</view>
+      <!-- 手动URL输入（备用） -->
+      <view class="form-subsection">
+        <view class="subsection-title">或手动输入图片URL（每行一个）</view>
+        <textarea class="form-textarea" value="{{formData.imagesText}}" bindinput="onFormInput" data-field="imagesText" maxlength="2000" placeholder="https://example.com/image.jpg" />
+      </view>
+    </view>
+
+    <!-- Action Buttons -->
+    <view class="form-actions">
+      <view class="action-btn preview-btn" bindtap="previewTemple">预览</view>
+      <view class="action-btn save-btn" bindtap="saveTemple">保存到云端</view>
+    </view>
+  </view>
+
+  <!-- Empty State -->
+  <view class="empty-state" wx:if="{{searchResults.length === 0 && searchText && !editingTemple}}">
+    <view class="empty-icon">🔍</view>
+    <view class="empty-text">未找到 "{{searchText}}" 相关的寺庙</view>
+  </view>
+
+  <view class="empty-state" wx:if="{{!searchText && !editingTemple}}">
+    <view class="empty-icon">✏️</view>
+    <view class="empty-text">搜索寺庙名称开始编辑</view>
+    <view class="empty-hint">支持按名称、省份、地址搜索</view>
+  </view>
+</view>

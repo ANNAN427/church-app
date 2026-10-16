@@ -1,0 +1,138 @@
+/* pages/pastor-chat/pastor-chat.wxss */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.chat-header {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1rpx solid #eee;
+}
+
+.header-avatar {
+  font-size: 80rpx;
+  margin-right: 20rpx;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.header-subtitle {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 8rpx;
+}
+
+.message-list {
+  flex: 1;
+  padding: 30rpx;
+  overflow-y: auto;
+}
+
+.message-item {
+  display: flex;
+  margin-bottom: 30rpx;
+  align-items: flex-start;
+}
+
+.message-item.user {
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  font-size: 60rpx;
+  margin: 0 15rpx;
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 20rpx 25rpx;
+  border-radius: 20rpx;
+  background: #fff;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.message-item.user .message-bubble {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+.message-bubble.thinking {
+  background: #f0f0f0;
+  color: #666;
+}
+
+.message-content {
+  font-size: 28rpx;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.quick-questions {
+  padding: 20rpx 30rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border-top: 1rpx solid #eee;
+}
+
+.quick-title {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 15rpx;
+  display: block;
+}
+
+.quick-list {
+  white-space: nowrap;
+}
+
+.quick-item {
+  display: inline-block;
+  padding: 12rpx 24rpx;
+  background: #fff;
+  border-radius: 30rpx;
+  margin-right: 15rpx;
+  font-size: 24rpx;
+  color: #667eea;
+  border: 1rpx solid #667eea;
+}
+
+.input-area {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background: #fff;
+  border-top: 1rpx solid #eee;
+}
+
+.input-box {
+  flex: 1;
+  padding: 20rpx 25rpx;
+  background: #f5f5f5;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  margin-right: 20rpx;
+  min-height: 44rpx;
+  max-height: 200rpx;
+  line-height: 1.4;
+}
+
+.send-btn {
+  padding: 20rpx 40rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+}

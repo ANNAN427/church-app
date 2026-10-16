@@ -1,0 +1,36 @@
+<!--pages/naming/detail/detail.wxml-->
+<view class="container">
+  <view class="header-section">
+    <view class="header-title">{{nameDetail.name}}</view>
+    <view class="header-score">综合评分：{{nameDetail.score}}分</view>
+  </view>
+
+  <view class="detail-section">
+    <view class="detail-item">
+      <view class="detail-label">📖 拼音</view>
+      <view class="detail-value">{{nameDetail.pinyin}}</view>
+    </view>
+    
+    <view class="detail-item">
+      <view class="detail-label">🔥 五行</view>
+      <view class="detail-value wuxing">{{nameDetail.wuxing}}</view>
+    </view>
+    
+    <view class="detail-item">
+      <view class="detail-label">💡 寓意</view>
+      <view class="detail-value">{{nameDetail.meaning}}</view>
+    </view>
+    
+    <view class="detail-item">
+      <view class="detail-label">📚 出处</view>
+      <view class="detail-value">{{nameDetail.source}}</view>
+    </view>
+    
+    <view class="detail-item">
+      <view class="detail-label">📊 分析</view>
+      <view class="detail-value">{{nameDetail.analysis}}</view>
+    </view>
+  </view>
+
+  <button class="btn-back" bindtap="goBack">返回</button>
+</view>

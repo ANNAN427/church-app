@@ -1,0 +1,16 @@
+<main-container show-tab-bar="{{true}}" active-tab="pray">
+  <view class="container">
+    <view class="header">
+      <text class="title">请佛入企</text>
+      <text class="subtitle">输入数字佛ID，专属数字佛背景</text>
+    </view>
+    <view class="form-section">
+      <view class="form-item">
+        <text class="label">数字佛ID</text>
+        <input class="input" placeholder="请输入数字佛ID" bindinput="onBuddhaIdInput" value="{{buddhaId}}" confirm-type="done"/>
+      </view>
+
+      <button class="submit-btn" bindtap="onSubmit">确认请佛</button>
+    </view>
+  </view>
+</main-container>

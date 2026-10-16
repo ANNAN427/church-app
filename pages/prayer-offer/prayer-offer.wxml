@@ -1,0 +1,37 @@
+<!-- pages/prayer-offer/prayer-offer.wxml -->
+<view class="container">
+  <view class="header">
+    <view class="header-icon">🙏</view>
+    <view class="header-title">献上祷告</view>
+    <view class="header-subtitle">专心祷告，与主交通</view>
+  </view>
+
+  <scroll-view scroll-y class="prayer-list">
+    <view wx:for="{{prayerList}}" wx:key="id" class="prayer-item {{currentPlaying === item.id ? 'playing' : ''}}" bindtap="playPrayer" data-id="{{item.id}}" data-url="{{item.url}}" data-title="{{item.title}}">
+      <view class="prayer-icon">
+        <text wx:if="{{currentPlaying === item.id}}">🔊</text>
+        <text wx:else>📻</text>
+      </view>
+      <view class="prayer-info">
+        <view class="prayer-title">{{item.title}}</view>
+        <view class="prayer-desc">{{item.desc || '祷告音频'}}</view>
+      </view>
+      <view class="prayer-duration">{{item.duration || '--:--'}}</view>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{currentPlaying}}" class="player-bar">
+    <view class="player-info">
+      <text class="player-title">{{currentTitle}}</text>
+    </view>
+    <view class="player-controls">
+      <view class="control-btn" bindtap="togglePlay">
+        <text wx:if="{{isPlaying}}">⏸️</text>
+        <text wx:else>▶️</text>
+      </view>
+      <view class="control-btn" bindtap="stopPlay">
+        <text>⏹️</text>
+      </view>
+    </view>
+  </view>
+</view>

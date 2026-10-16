@@ -1,0 +1,21 @@
+<view class="container">
+  <!-- 背景图 -->
+  <image class="muyu-bg" src="https://1689.1r1zhux.com/beads/muyu-bg.jpg" mode="widthFix" />
+  
+  <!-- 木槌（右侧） -->
+  <image class="mallet {{isAnimating ? 'animate' : ''}}" src="https://1689.1r1zhux.com/beads/mallet.png" mode="aspectFit" bindtap="tapMuyu" />
+  
+  <!-- 功德值 +1 烦恼值 -1 浮动提示 -->
+  <view class="merit-popup {{showMeritPopup ? 'show' : ''}}">
+    <text class="merit-plus">功德值 +1</text>
+    <text class="merit-minus">烦恼值 -1</text>
+  </view>
+  
+  <!-- 左下角功德值+ -->
+  <view class="total-merit-display">功德值 {{totalMerit}}</view>
+  
+  <!-- 右下角分享按钮 -->
+  <button class="share-btn" open-type="share">
+    <text class="share-text">好友分享</text>
+  </button>
+</view>

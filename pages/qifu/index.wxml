@@ -1,0 +1,34 @@
+<main-container wx:if="{{k}}" u-s="{{['d']}}" u-i="dd20b092-0" bind:__l="__l" u-p="{{k}}" bindmenuClick="{{handleEnterpriseMenu}}">
+<view wx:if="{{m}}" class="enterprise-banner" bindtap="{{handleEnterpriseMenu}}">
+  <text class="enterprise-label">当前企业</text>
+  <view class="enterprise-name-row">
+    <text class="enterprise-name">{{m}}</text>
+    <text class="enterprise-unbind" catchtap="{{handleUnbindEnterprise}}">解绑</text>
+  </view>
+</view>
+<view wx:if="{{n}}" class="modal-overlay">
+  <view class="modal-content">
+    <text class="modal-title">创建企业</text>
+    <input class="modal-input" placeholder="请输入企业名称" bindinput="{{w}}" value="{{v}}" confirm-type="done"/>
+    <view class="modal-btn-row">
+      <view class="modal-btn cancel-btn" bindtap="{{y}}">取消</view>
+      <view class="modal-btn confirm-btn" bindtap="{{r}}">创建</view>
+    </view>
+  </view>
+</view>
+<view wx:if="{{o}}" class="modal-overlay">
+  <view class="modal-content">
+    <text class="modal-title">选择企业</text>
+    <scroll-view scroll-y class="enterprise-list" wx:if="{{p.length>0}}">
+      <view wx:for="{{p}}" wx:key="name" class="enterprise-item" bindtap="{{s}}" data-index="{{index}}">
+        <text class="enterprise-item-name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+    <view wx:else class="empty-tip">暂无企业，请先创建</view>
+    <view class="modal-btn-row">
+      <view class="modal-btn cancel-btn" bindtap="{{z}}">取消</view>
+      <view class="modal-btn new-btn" bindtap="{{t}}">新建企业</view>
+    </view>
+  </view>
+</view>
+<image class="bg-image" src="{{a}}" mode="aspectFill"/><view class="altar-area"><image class="gongzhuo-image" src="{{b}}" mode="widthFix"/><view class="altar-items"><view class="candle-container left-candle" bindtap="{{e}}"><image class="lazhu-image" src="{{c}}" mode="heightFix"/><canvas wx:if="{{d}}" type="2d" id="leftFlameCanvas" class="flame-canvas" style="{{'width:' + '80px' + ';' + ('height:' + '100px')}}"/></view><view class="incense-container" bindtap="{{g}}"><image class="xianglu-image" src="{{f}}" mode="heightFix"/><canvas type="2d" id="incenseSmokeCanvas" class="smoke-canvas" style="{{'width:' + '140px' + ';' + ('height:' + '240px')}}"/></view><view class="candle-container right-candle" bindtap="{{j}}"><image class="lazhu-image" src="{{h}}" mode="heightFix"/><canvas wx:if="{{i}}" type="2d" id="rightFlameCanvas" class="flame-canvas" style="{{'width:' + '80px' + ';' + ('height:' + '100px')}}"/></view></view></view></main-container>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我要企福",
+  "usingComponents": {
+    "main-container": "../../components/main-container/main-container"
+  }
+}

@@ -1,0 +1,70 @@
+/* pages/family-tree/family-tree.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #f5f7fa;
+}
+
+.header {
+  padding: 30rpx;
+  text-align: center;
+  background: white;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.subtitle {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 10rpx;
+}
+
+.tree-scroll {
+  flex: 1;
+  overflow: scroll;
+}
+
+.canvas-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40rpx;
+  min-width: max-content;
+}
+
+.family-tree-canvas {
+  background: white;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: white;
+  border-top: 2rpx solid #eee;
+}
+
+.btn-save, .btn-back {
+  flex: 1;
+  margin: 0 10rpx;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+}
+
+.btn-save {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-back {
+  background: #f0f0f0;
+  color: #666;
+}

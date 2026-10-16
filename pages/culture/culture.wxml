@@ -1,0 +1,52 @@
+<!--pages/culture/culture.wxml-->
+<view class="container">
+  <!-- 姓氏查询 -->
+  <view class="search-section">
+    <view class="search-title">🔍 寻根问祖</view>
+    <view class="search-input-row">
+      <input class="search-input" placeholder="请输入姓氏查询" value="{{surnameInput}}" bindinput="onSurnameInput" confirm-type="search" bindconfirm="searchSurname"/>
+      <button class="btn-search" bindtap="searchSurname">查询</button>
+    </view>
+  </view>
+
+  <!-- 姓氏详情 -->
+  <view class="surname-detail" wx:if="{{showSurnameResult && surnameData}}">
+    <view class="surname-header">
+      <view class="surname-character">{{surname}}</view>
+      <view class="surname-info">
+        <view class="surname-title">{{surname}}氏文化</view>
+        <view class="surname-subtitle">源远流长 · 传承千年</view>
+      </view>
+    </view>
+
+    <view class="detail-section">
+      <view class="detail-title">📜 姓氏起源</view>
+      <view class="detail-content">{{surnameData.origin}}</view>
+    </view>
+
+    <view class="detail-section">
+      <view class="detail-title">⭐ 历史名人</view>
+      <view class="celebrity-list">
+        <view class="celebrity-item" wx:for="{{surnameData.celebrities}}" wx:key="name" bindtap="viewCelebrity" data-item="{{item}}">
+          <view class="celebrity-name">{{item.name}}</view>
+          <view class="celebrity-desc">{{item.brief}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="detail-section">
+      <view class="detail-title">🗺️ 迁徙历史</view>
+      <view class="detail-content">{{surnameData.migration}}</view>
+    </view>
+
+    <view class="detail-section">
+      <view class="detail-title">📖 名人轶事</view>
+      <view class="story-list">
+        <view class="story-item" wx:for="{{surnameData.stories}}" wx:key="title" bindtap="viewStory" data-item="{{item}}">
+          <view class="story-title">{{item.title}}</view>
+          <view class="story-brief">{{item.brief}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

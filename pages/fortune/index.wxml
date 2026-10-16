@@ -1,0 +1,243 @@
+<!--pages/fortune/index.wxml - 天经地易抽签页面（隐藏式侧边栏菜单 + AI 分析弹窗）-->
+<view class="container">
+  <!-- 左侧菜单按钮 -->
+  <view class="{{['menu-btn', 'left-btn', leftMenuOpen && 'menu-open']}}" catchtap="toggleLeftMenu">
+    <text class="menu-icon">{{leftMenuOpen ? '✕' : '☰'}}</text>
+  </view>
+  
+  <!-- 左侧边栏菜单 -->
+  <view class="{{['side-menu', 'left-menu', leftMenuOpen && 'show']}}">
+    <view class="menu-item" bindtap="navigateToFingerprint">
+      <text class="menu-icon">👆</text>
+      <text class="menu-label">指纹密码</text>
+    </view>
+    <view class="menu-item" bindtap="navigateToAlmanac">
+      <text class="menu-icon">📅</text>
+      <text class="menu-label">良辰吉日</text>
+    </view>
+    <view class="menu-item" bindtap="navigateToDailyDraw">
+      <text class="menu-icon">💝</text>
+      <text class="menu-label">每日心语</text>
+    </view>
+    <view class="menu-item" bindtap="navigateToDailyQuestion">
+      <text class="menu-icon">❓</text>
+      <text class="menu-label">每日一问</text>
+    </view>
+  </view>
+  
+  <!-- 右侧菜单按钮 -->
+  <view class="{{['menu-btn', 'right-btn', rightMenuOpen && 'menu-open']}}" catchtap="toggleRightMenu">
+    <text class="menu-icon">{{rightMenuOpen ? '✕' : '⋮'}}</text>
+  </view>
+  
+  <!-- 右侧边栏菜单 -->
+  <view class="{{['side-menu', 'right-menu', rightMenuOpen && 'show']}}">
+    <view class="menu-item" bindtap="openAiAnalysis" data-type="numberLuck">
+      <text class="menu-icon">🔢</text>
+      <text class="menu-label">数字能量</text>
+    </view>
+    <view class="menu-item" bindtap="openAiAnalysis" data-type="constellation">
+      <text class="menu-icon">⭐</text>
+      <text class="menu-label">星座分析</text>
+    </view>
+    <view class="menu-item" bindtap="openAiAnalysis" data-type="dreamInterpretation">
+      <text class="menu-icon">😴</text>
+      <text class="menu-label">周公解梦</text>
+    </view>
+    <view class="menu-item" bindtap="openAiAnalysis" data-type="auspiciousDay">
+      <text class="menu-icon">🗓️</text>
+      <text class="menu-label">黄道吉日</text>
+    </view>
+  </view>
+  
+  <!-- 遮罩层 -->
+  <view class="{{['mask', (leftMenuOpen || rightMenuOpen || showAnalysisDialog) && 'show']}}" bindtap="closeAllMenus"></view>
+  
+  <!-- 背景图片 -->
+  <image class="bg-image" src="https://1689.1r1zhux.com/beads/fortune_1.jpg" mode="aspectFill" />
+  
+  <!-- 八卦背景 -->
+  <view class="bagua-bg {{isShaking ? 'shaking' : ''}}">
+    <view class="bagua-face qian"></view>
+    <view class="bagua-face dui"></view>
+    <view class="bagua-face li"></view>
+    <view class="bagua-face zhen"></view>
+    <view class="bagua-face xun"></view>
+    <view class="bagua-face kan"></view>
+    <view class="bagua-face gen"></view>
+    <view class="bagua-face kun"></view>
+  </view>
+  
+  <!-- 太极图 -->
+  <view class="taiji {{isShaking ? 'rotating' : ''}}">
+    <view class="taiji-yang"></view>
+    <view class="taiji-yin"></view>
+    <view class="taiji-dot yang-dot"></view>
+    <view class="taiji-dot yin-dot"></view>
+  </view>
+  
+  <!-- 签筒容器 -->
+  <view class="qiantong-container {{isShaking ? 'shake-lot' : ''}}" bindtap="shakeLot">
+    <view class="lot-cylinder">
+      <view class="cylinder-body">
+        <text class="cylinder-text">上上签</text>
+        <text class="cylinder-sub">有求必应</text>
+      </view>
+      <view class="cylinder-top"></view>
+      <view class="cylinder-bottom"></view>
+      
+      <!-- 签条 -->
+      <view class="lot-sticks">
+        <view class="stick" wx:for="{{15}}" wx:key="*this"></view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 提示文字 -->
+  <view class="hint-text {{showResult ? 'hidden' : ''}}">
+    <text class="hint-main">摇一摇 · 点一点</text>
+    <text class="hint-sub">您的幸运锦囊，即刻揭晓</text>
+  </view>
+  
+  <!-- 签文结果卡片 -->
+  <view class="result-card {{showResult ? 'visible' : 'hidden'}}">
+    <view class="result-title">{{lotData.lotName}}</view>
+    <view class="result-content">
+      <view class="lot-line" wx:for="{{lotData.lotContentLines}}" wx:key="*this">{{item}}</view>
+    </view>
+    
+    <!-- 按钮 -->
+    <view class="result-actions">
+      <view class="action-btn" bindtap="openEnergy">
+        <text class="action-text">开启能量</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 免责声明 -->
+  <view class="disclaimer">
+    <text class="dis-text">内容源自传统诗签文化，用于自我反思与行动参考</text>
+  </view>
+  
+  <!-- AI 解读弹窗 -->
+  <view class="dialog-overlay {{showInterpret ? 'show' : ''}}" bindtap="closeInterpret">
+    <view class="dialog-container" catchtap="{{}}">
+      <view class="dialog-header">
+        <text class="dialog-title">开启能量</text>
+        <view class="close-btn" bindtap="closeInterpret">
+          <text class="close-icon">✕</text>
+        </view>
+      </view>
+      <scroll-view class="dialog-content" scroll-y="true">
+        <view class="interpret-item" wx:if="{{interpretation.meaning}}">
+          <view class="item-label">核心寓意</view>
+          <view class="item-content">{{interpretation.meaning}}</view>
+        </view>
+        
+        <view class="interpret-item" wx:if="{{interpretation.guidance}}">
+          <view class="item-label">行动指引</view>
+          <view class="item-content">{{interpretation.guidance}}</view>
+        </view>
+        
+        <view class="advice-section">
+          <view class="advice-label">运势建议</view>
+          <view class="advice-grid">
+            <view class="advice-item" wx:if="{{advice.career}}">
+              <text class="advice-icon">💼</text>
+              <text class="advice-text">{{advice.career}}</text>
+            </view>
+            <view class="advice-item" wx:if="{{advice.wealth}}">
+              <text class="advice-icon">💰</text>
+              <text class="advice-text">{{advice.wealth}}</text>
+            </view>
+            <view class="advice-item" wx:if="{{advice.love}}">
+              <text class="advice-icon">💕</text>
+              <text class="advice-text">{{advice.love}}</text>
+            </view>
+            <view class="advice-item" wx:if="{{advice.health}}">
+              <text class="advice-icon">🏥</text>
+              <text class="advice-text">{{advice.health}}</text>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  
+  <!-- AI 分析弹窗（右侧菜单功能） -->
+  <view class="dialog-overlay {{showAnalysisDialog ? 'show' : ''}}" bindtap="closeAnalysisDialog">
+    <view class="dialog-container analysis-dialog" catchtap="preventClose">
+      <view class="dialog-header">
+        <text class="dialog-title">{{analysisConfig.title}}</text>
+        <view class="close-btn" bindtap="closeAnalysisDialog">
+          <text class="close-icon">✕</text>
+        </view>
+      </view>
+      <scroll-view class="dialog-content" scroll-y="true" bindtap="preventClose">
+        <view class="analysis-desc">{{analysisConfig.description}}</view>
+        
+        <!-- 输入框 -->
+        <view class="input-section" wx:if="{{analysisConfig.requiresName}}">
+          <text class="input-label">请输入内容</text>
+          <!-- 数字能量：单行输入框 -->
+          <input wx:if="{{analysisConfig.type==='numberLuck' || analysisConfig.type==='auspiciousDay'}}" class="name-input single-input" maxlength="100" placeholder="{{analysisConfig.placeholder}}" placeholder-class="input-placeholder" value="{{userInput}}" bindinput="onUserInput"/>
+          <!-- 星座分析、周公解梦：多行输入框 -->
+          <textarea wx:if="{{analysisConfig.type==='constellation' || analysisConfig.type==='dreamInterpretation'}}" class="name-input multi-input" maxlength="500" placeholder="{{analysisConfig.placeholder}}" placeholder-class="input-placeholder" value="{{userInput}}" bindinput="onUserInput" auto-height/>
+        </view>
+        
+        <!-- 日期选择器 -->
+        <view class="input-section" wx:if="{{analysisConfig.requiresBirthDate}}">
+          <text class="input-label">请选择{{analysisConfig.datePickerLabel}}</text>
+          <picker mode="{{analysisConfig.datePickerType||'date'}}" value="{{birthDateValue}}" bindchange="onDateChange" class="datetime-picker" catchtap="preventClose">
+            <view class="picker-display">{{birthDateValue||analysisConfig.datePickerPlaceholder}}</view>
+          </picker>
+          <!-- 显示准确的农历 -->
+          <view class="lunar-display" wx:if="{{lunarDate}}">
+            <text class="lunar-text">{{lunarDate}}</text>
+          </view>
+        </view>
+        
+        <!-- 提交按钮 -->
+        <view class="submit-btn" bindtap="submitAnalysis" wx:if="{{!analysisResult}}">
+          <text class="submit-text">开始分析</text>
+        </view>
+        
+        <!-- 分析结果 -->
+        <view class="result-section" wx:if="{{analysisResult}}">
+          <text class="result-label">分析结果</text>
+          <view class="result-content-box" catchtap="preventClose">
+            <!-- 使用 rich-text 渲染格式化的内容 -->
+            <rich-text nodes="{{formattedResult}}"></rich-text>
+          </view>
+          <view class="result-actions" catchtap="preventClose">
+            <view class="action-btn primary" bindtap="copyResult" catchtap="preventClose">
+              <text class="action-text">复制结果</text>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  
+  <!-- AI 分析结果弹窗（带关闭按钮） -->
+  <view class="dialog-overlay {{showAiResultModal ? 'show' : ''}}" bindtap="closeAiResultModal">
+    <view class="dialog-container ai-result-dialog" catchtap="{{}}">
+      <view class="dialog-header">
+        <text class="dialog-title">{{aiResultTitle}}</text>
+        <view class="close-btn" bindtap="closeAiResultModal">
+          <text class="close-icon">✕</text>
+        </view>
+      </view>
+      <scroll-view class="dialog-content" scroll-y="true">
+        <view class="result-content-box">
+          <text class="result-text">{{aiResultContent}}</text>
+        </view>
+      </scroll-view>
+      <view class="dialog-footer">
+        <view class="action-btn primary" bindtap="copyAiResult">
+          <text class="action-text">复制结果</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

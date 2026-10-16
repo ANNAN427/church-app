@@ -1,0 +1,1 @@
+"use strict";const e=require("../../utils/request.js"),s={personPage:s=>e.request.get("/biz/familyperson/page",s),personSubmit:s=>e.request.post("/biz/familyperson/add",s),personEdit:s=>e.request.post("/biz/familyperson/edit",s),personDetail:s=>e.request.get("/biz/familyperson/detail",s),personDelete:s=>e.request.post("/biz/familyperson/delete",s)};exports.personApi=s;

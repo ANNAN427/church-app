@@ -1,0 +1,175 @@
+/* 在线客服页面样式 - 优化版 */
+.customer-service-page {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #4A69BD 0%, #6A89CC 40%, #F8F9FA 100%);
+  padding: 0;
+}
+
+.cs-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.cs-header {
+  width: 100%;
+  background: linear-gradient(135deg, #4A69BD 0%, #6A89CC 100%);
+  padding: 60rpx 40rpx 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(74, 105, 189, 0.3);
+}
+
+.cs-title-box {
+  text-align: center;
+  max-width: 600rpx;
+  margin: 0 auto;
+}
+
+.cs-title {
+  font-size: 56rpx;
+  font-weight: bold;
+  color: #ffffff;
+  display: block;
+  text-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.25);
+  letter-spacing: 4rpx;
+}
+
+.cs-subtitle {
+  font-size: 30rpx;
+  color: rgba(255, 255, 255, 0.95);
+  display: block;
+  margin-top: 12rpx;
+  font-weight: 300;
+  letter-spacing: 2rpx;
+}
+
+.cs-content {
+  background: #ffffff;
+  border-radius: 32rpx 32rpx 0 0;
+  padding: 60rpx 40rpx;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 -8rpx 32rpx rgba(0, 0, 0, 0.08);
+  margin-top: -40rpx;
+}
+
+.cs-icon-area {
+  margin-bottom: 40rpx;
+  padding: 20rpx;
+  background: linear-gradient(135deg, rgba(74, 105, 189, 0.1) 0%, rgba(106, 137, 204, 0.1) 100%);
+  border-radius: 50%;
+}
+
+.cs-icon {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.cs-message {
+  display: flex;
+  flex-direction: column;
+  gap: 28rpx;
+  margin-bottom: 50rpx;
+  width: 100%;
+}
+
+.cs-greeting {
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #2C3E50;
+  text-align: center;
+  display: block;
+  letter-spacing: 1rpx;
+}
+
+.cs-text {
+  font-size: 30rpx;
+  color: #555555;
+  line-height: 2;
+  text-align: justify;
+  display: block;
+  letter-spacing: 0.5rpx;
+}
+
+.cs-highlight-box {
+  background: linear-gradient(135deg, rgba(74, 105, 189, 0.08) 0%, rgba(106, 137, 204, 0.08) 100%);
+  border-left: 6rpx solid #4A69BD;
+  border-radius: 16rpx;
+  padding: 28rpx 32rpx;
+  margin-top: 16rpx;
+}
+
+.cs-text-highlight {
+  font-size: 30rpx;
+  color: #4A69BD;
+  font-weight: 500;
+  line-height: 1.9;
+  text-align: center;
+  display: block;
+  letter-spacing: 0.5rpx;
+}
+
+.cs-button {
+  width: 100%;
+  min-height: 140rpx;
+  background: linear-gradient(135deg, #4A69BD 0%, #6A89CC 100%);
+  border-radius: 70rpx;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20rpx;
+  box-shadow: 0 12rpx 32rpx rgba(74, 105, 189, 0.35);
+  padding: 24rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.cs-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+  border-radius: 70rpx;
+}
+
+.cs-button::after {
+  border: none;
+}
+
+.cs-button-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.cs-button-icon {
+  font-size: 40rpx;
+  margin-bottom: 8rpx;
+}
+
+.cs-button-text {
+  font-size: 38rpx;
+  color: #ffffff;
+  font-weight: 600;
+  display: block;
+  letter-spacing: 2rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.15);
+}
+
+.cs-button-sub {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.95);
+  display: block;
+  margin-top: 8rpx;
+  font-weight: 300;
+}

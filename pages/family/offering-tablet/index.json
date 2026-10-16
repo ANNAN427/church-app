@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "安奉先人牌位",
+  "usingComponents": {
+    "main-container": "../../../components/main-container/main-container"
+  }
+}

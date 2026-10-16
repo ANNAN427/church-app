@@ -1,0 +1,132 @@
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.muyu-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+.instruction {
+  position: fixed;
+  top: 80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 32rpx;
+  color: #8b7355;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20rpx 50rpx;
+  border-radius: 40rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.mallet {
+  width: 350rpx;
+  height: 350rpx;
+  position: fixed;
+  right: 15%;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  z-index: 10;
+}
+
+.mallet.animate {
+  animation: mallet-tap 0.15s ease-out;
+}
+
+@keyframes mallet-tap {
+  0%, 100% { transform: translateY(-50%) rotate(45deg); }
+  50% { transform: translate(-30rpx, -80rpx) rotate(20deg); }
+}
+
+.share-btn {
+  position: fixed;
+  bottom: 100rpx;
+  right: 40rpx;
+  padding: 16rpx 28rpx;
+  background: linear-gradient(135deg, #d4a574 0%, #b8956a 100%);
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(212, 165, 116, 0.4);
+  z-index: 200;
+  border: none;
+}
+
+.share-btn::after {
+  border: none;
+}
+
+.share-text {
+  font-size: 26rpx;
+  color: #fff;
+}
+
+/* 功德值 +1 烦恼值 -1 浮动提示 */
+.merit-popup {
+  position: fixed;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
+}
+
+.merit-popup.show {
+  opacity: 1;
+  animation: float-up 0.8s ease-out forwards;
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -150%);
+  }
+}
+
+.merit-plus {
+  font-size: 56rpx;
+  color: #d4a574;
+  font-weight: bold;
+  text-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.6);
+}
+
+.merit-minus {
+  font-size: 48rpx;
+  color: #c05050;
+  font-weight: bold;
+  text-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.6);
+}
+
+/* 左下角总功德值 */
+.total-merit-display {
+  position: fixed;
+  bottom: 100rpx;
+  left: 40rpx;
+  font-size: 28rpx;
+  color: #8b7355;
+  z-index: 200;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12rpx 24rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}

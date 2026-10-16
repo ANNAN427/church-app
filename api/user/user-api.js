@@ -1,0 +1,1 @@
+"use strict";const e=require("../../utils/request.js"),s={userInfo:s=>e.request.get("/auth/c/getLoginUser",s,{isPrefix:!1}),userEditUserInfo:s=>e.request("/user/edit",s,{method:"POST"})};exports.userApi=s;

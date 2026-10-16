@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "电子族谱",
+  "usingComponents": {
+    "st-icons": "../../../components/st-icons/st-icons",
+    "uni-popup": "../../../node-modules/@dcloudio/uni-ui/lib/uni-popup/uni-popup",
+    "main-container": "../../../components/main-container/main-container"
+  }
+}

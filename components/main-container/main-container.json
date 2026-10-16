@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "st-icons": "../st-icons/st-icons"
+  }
+}

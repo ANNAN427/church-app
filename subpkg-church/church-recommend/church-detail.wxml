@@ -1,0 +1,59 @@
+<!-- pages/church-recommend/church-detail.wxml -->
+<view class="container">
+  <!-- Header Section -->
+  <view class="name-header">
+    <view class="church-name">{{church.name}}</view>
+    <view class="church-province">✝️ {{church.province}}</view>
+  </view>
+
+  <!-- Basic Info Card -->
+  <view class="info-card">
+    <view class="info-title">基本信息</view>
+    <view class="info-row" wx:if="{{church.address}}">
+      <text class="info-label">📍 地址</text>
+      <text class="info-value">{{church.address}}</text>
+    </view>
+    <view class="info-row" wx:if="{{church.phone}}">
+      <text class="info-label">📞 电话</text>
+      <text class="info-value">{{church.phone}}</text>
+    </view>
+    <view class="info-row" wx:if="{{church.ticket}}">
+      <text class="info-label">🎫 门票</text>
+      <text class="info-value">{{church.ticket}}</text>
+    </view>
+    <view class="info-row" wx:if="{{church.openTime}}">
+      <text class="info-label">🕐 开放时间</text>
+      <text class="info-value">{{church.openTime}}</text>
+    </view>
+  </view>
+
+  <!-- History Section -->
+  <view class="content-card" wx:if="{{church.history}}">
+    <view class="card-title">📜 历史沿革</view>
+    <view class="card-content">{{church.history}}</view>
+  </view>
+
+  <!-- Architecture Section -->
+  <view class="content-card" wx:if="{{church.architecture}}">
+    <view class="card-title">🏛️ 建筑格局</view>
+    <view class="card-content">{{church.architecture}}</view>
+  </view>
+
+  <!-- Features Section -->
+  <view class="content-card" wx:if="{{church.features}}">
+    <view class="card-title">✨ 主要特色</view>
+    <view class="card-content">{{church.features}}</view>
+  </view>
+
+  <!-- Action Buttons -->
+  <view class="action-bar">
+    <view class="action-btn" bindtap="shareChurch">
+      <text class="btn-icon">📤</text>
+      <text class="btn-text">分享</text>
+    </view>
+    <view class="action-btn" bindtap="backToList">
+      <text class="btn-icon">📋</text>
+      <text class="btn-text">返回列表</text>
+    </view>
+  </view>
+</view>

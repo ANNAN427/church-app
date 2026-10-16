@@ -1,0 +1,37 @@
+<!-- pages/music-praise/music-praise.wxml -->
+<view class="container">
+  <view class="header">
+    <view class="header-icon">🎵</view>
+    <view class="header-title">圣乐赞美</view>
+    <view class="header-subtitle">赞美主，用音乐敬拜</view>
+  </view>
+
+  <scroll-view scroll-y class="music-list">
+    <view wx:for="{{musicList}}" wx:key="id" class="music-item {{currentPlaying === item.id ? 'playing' : ''}}" bindtap="playMusic" data-id="{{item.id}}" data-url="{{item.url}}" data-title="{{item.title}}">
+      <view class="music-icon">
+        <text wx:if="{{currentPlaying === item.id}}">🔊</text>
+        <text wx:else>🎵</text>
+      </view>
+      <view class="music-info">
+        <view class="music-title">{{item.title}}</view>
+        <view class="music-artist">{{item.artist || '赞美诗歌'}}</view>
+      </view>
+      <view class="music-duration">{{item.duration || '--:--'}}</view>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{currentPlaying}}" class="player-bar">
+    <view class="player-info">
+      <text class="player-title">{{currentTitle}}</text>
+    </view>
+    <view class="player-controls">
+      <view class="control-btn" bindtap="togglePlay">
+        <text wx:if="{{isPlaying}}">⏸️</text>
+        <text wx:else>▶️</text>
+      </view>
+      <view class="control-btn" bindtap="stopPlay">
+        <text>⏹️</text>
+      </view>
+    </view>
+  </view>
+</view>

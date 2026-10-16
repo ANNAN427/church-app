@@ -1,0 +1,143 @@
+{
+  "pages": [
+    "pages/index/buddhism",
+    "pages/index/index",
+    "pages/agreement/user-agreement",
+    "pages/agreement/privacy-policy",
+    "pages/family/index",
+    "pages/family/ancestral-hall/form",
+    "pages/family/genealogy/index",
+    "pages/family/genealogy/form",
+    "pages/family/genealogy/generation",
+    "pages/family/genealogy/generation-form",
+    "pages/family/person/index",
+    "pages/family/person/form",
+    "pages/family/person/detail",
+    "pages/family/person/relationship",
+    "pages/rejoice/index",
+    "pages/family/offering-tablet/index",
+    "pages/family/buddha-select/index",
+    "pages/tree/tree",
+    "pages/culture/culture",
+    "pages/almanac/almanac",
+    "pages/fortune/index",
+    "pages/invite-buddha/index",
+    "pages/qifu/index",
+    "pages/mine/index",
+    "pages/muyu/muyu",
+    "pages/bowl/bowl",
+    "pages/beads/beads",
+    "pages/meditation/meditation",
+    "pages/wealth/wealth",
+    "pages/blessing/index",
+    "pages/blessing/collected",
+    "pages/blessing/detail",
+    "pages/grace-cards/index",
+    "pages/pastor-chat/pastor-chat",
+    "pages/music-praise/music-praise",
+    "pages/prayer-offer/prayer-offer",
+    "pages/meimei-journey/meimei-journey",
+    "pages/bodhi-chat/bodhi-chat",
+    "pages/genealogy-home/index",
+    "pages/daily-draw/daily-draw",
+    "pages/daily-draw/daily-draw-start",
+    "pages/scenic-scene/scenic-scene",
+    "pages/bazi/bazi"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "e人e炷香",
+    "navigationBarBackgroundColor": "#1a1a2e",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#c9944a",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/buddhism",
+        "text": "以马内利",
+        "iconPath": "static/tabbar/pray.png",
+        "selectedIconPath": "static/tabbar/pray-active.png"
+      },
+      {
+        "pagePath": "pages/family/index",
+        "text": "名门望族",
+        "iconPath": "static/tabbar/family.png",
+        "selectedIconPath": "static/tabbar/family-active.png"
+      },
+      {
+        "pagePath": "pages/fortune/index",
+        "text": "天经地易",
+        "iconPath": "static/tabbar/fortune.png",
+        "selectedIconPath": "static/tabbar/fortune-active.png"
+      },
+      {
+        "pagePath": "pages/qifu/index",
+        "text": "我要企福",
+        "iconPath": "static/tabbar/qifu.png",
+        "selectedIconPath": "static/tabbar/qifu-active.png"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的",
+        "iconPath": "static/tabbar/mine.png",
+        "selectedIconPath": "static/tabbar/mine-active.png"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "permission": {
+    "scope.accelerometer": {
+      "desc": "用于摇一摇抽签功能，增加互动体验"
+    }
+  },
+  "subPackages": [
+    {
+      "root": "subpkg-temple",
+      "pages": [
+        "pages/temple-intro/temple-intro",
+        "pages/temple-detail/temple-detail",
+        "pages/temple-admin/temple-admin"
+      ]
+    },
+    {
+      "root": "subpkg-large",
+      "pages": [
+        "pages/family-tree/family-tree",
+        "pages/relationship-calculator/relationship-calculator"
+      ]
+    },
+    {
+      "root": "subpkg-tools",
+      "pages": [
+        "pages/fingerprint/index",
+        "pages/fingerprint/result/result",
+        "pages/daily-question/daily-question",
+        "pages/daily-question/daily-gua",
+        "pages/naming/naming",
+        "pages/naming/detail",
+        "pages/star-memory/star-memory",
+        "pages/member/add",
+        "pages/member/edit",
+        "pages/member/member"
+      ]
+    },
+    {
+      "root": "subpkg-family",
+      "pages": [
+        "pages/family-tree/family-tree",
+        "pages/family-tree/family-tree-canvas"
+      ]
+    },
+    {
+      "root": "subpkg-church",
+      "pages": [
+        "church-recommend/church-recommend",
+        "church-recommend/church-detail"
+      ]
+    }
+  ]
+}

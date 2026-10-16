@@ -1,0 +1,495 @@
+/* pages/index/index.wxss */
+.container {
+  padding: 15rpx;
+  background: #f5f7fa;
+  width: 100%;
+  height: 100%;
+}
+
+/* 广告语横幅 */
+.slogan-banner {
+  width: 95%;
+  background: #667eea;
+  padding: 15rpx;
+  text-align: center;
+  margin-bottom: 15rpx;
+  border-radius: 12rpx;
+}
+
+.slogan-text {
+  color: white;
+  font-size: 24rpx;
+  font-weight: bold;
+}
+
+/* 家谱名称 */
+.family-name-section {
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15rpx;
+  padding: 12rpx;
+  background: white;
+  border-radius: 12rpx;
+}
+
+.family-name-label {
+  color: #666;
+  font-size: 24rpx;
+  margin-right: 10rpx;
+}
+
+.family-name-value {
+  color: #333;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.edit-family-name {
+  color: #667eea;
+  font-size: 24rpx;
+  margin-left: 10rpx;
+  padding: 5rpx 10rpx;
+}
+
+/* 上方：长辈区域 */
+.top-section {
+  width: 100%;
+  margin-bottom: 20rpx;
+}
+
+.elders-row {
+  display: flex;
+  justify-content: center;
+  gap: 20rpx;
+  flex-wrap: wrap;
+}
+
+.elder-card,
+.add-card-elder {
+  background: white;
+  border-radius: 16rpx;
+  padding: 25rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.add-card-elder {
+  background: #f8f9fa;
+}
+
+.member-avatar-large,
+.add-icon-circle {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+  margin-bottom: 10rpx;
+}
+
+.member-avatar-large.deceased,
+.member-avatar-medium.deceased {
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+.add-icon-circle {
+  background: #667eea;
+  color: white;
+}
+
+.member-name,
+.add-text-small {
+  font-size: 24rpx;
+  color: #333;
+}
+
+.member-status {
+  font-size: 20rpx;
+  color: #999;
+  margin-top: 5rpx;
+}
+
+/* 中间：当前人区域 */
+.middle-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+}
+
+.left-column,
+.right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25rpx; /* 增加同辈之间的间距 */
+}
+
+.left-add {
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 25rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-icon-square {
+  width: 50rpx;
+  height: 50rpx;
+  background: #667eea;
+  color: white;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-bottom: 10rpx;
+}
+
+.add-text-medium {
+  font-size: 24rpx;
+  color: #333;
+}
+
+.sibling-card {
+  background: white;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.member-avatar-medium {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-bottom: 8rpx;
+}
+
+.member-name-small,
+.member-relation-small {
+  font-size: 22rpx;
+  color: #333;
+}
+
+/* 配偶卡片不显示关系文本 */
+.spouse-card .member-relation-small {
+  display: none;
+}
+
+/* 当前人 */
+.current-person-large {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.current-badge {
+  background: #667eea;
+  color: white;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  margin-bottom: 15rpx;
+}
+
+.badge-text {
+  font-size: 22rpx;
+}
+
+.current-avatar-large {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50rpx;
+  margin-bottom: 15rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.current-name-large {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+}
+
+.current-actions {
+  display: flex;
+  gap: 15rpx;
+}
+
+.action-tag {
+  background: #f8f9fa;
+  color: #667eea;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+}
+
+/* 下方：晚辈区域 */
+.bottom-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.children-row {
+  display: flex;
+  justify-content: center;
+  gap: 20rpx;
+  flex-wrap: wrap;
+  margin-bottom: 15rpx;
+}
+
+.child-card {
+  background: white;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.add-children-row {
+  display: flex;
+  gap: 20rpx;
+}
+
+.add-card-child {
+  background: #f8f9fa;
+  border-radius: 16rpx;
+  padding: 25rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 家族统计 */
+.family-stats-section {
+  width: 100%;
+  background: white;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 引导文字 */
+.guidance-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 15rpx 20rpx;
+  border-radius: 25rpx;
+  margin-bottom: 15rpx;
+  box-shadow: 0 4rpx 15rpx rgba(102, 126, 234, 0.3);
+}
+
+.guidance-icon {
+  font-size: 32rpx;
+  margin: 0 10rpx;
+}
+
+.guidance-content {
+  font-size: 28rpx;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+  text-shadow: 0 2rpx 4rpx rgba(0, 0, 0, 0.2);
+}
+
+/* 分享按钮样式 */
+.share-family-tree-btn {
+  display: inline-block;
+  margin-left: 15rpx;
+  padding: 8rpx 20rpx;
+  font-size: 24rpx;
+  color: white;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20rpx;
+  border: none;
+  box-shadow: 0 2rpx 8rpx rgba(102, 126, 234, 0.3);
+}
+
+.share-family-tree-btn::after {
+  border: none;
+}
+
+.stats-title {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+  text-align: center;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: space-around;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 32rpx;
+  color: #667eea;
+  font-weight: bold;
+  margin-bottom: 5rpx;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: #666;
+}
+
+/* 弹窗 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.modal-header h2 {
+  font-size: 32rpx;
+  color: #333;
+}
+
+.close {
+  font-size: 40rpx;
+  color: #999;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.member-item {
+  padding: 15rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.member-item-content {
+  flex: 1;
+}
+
+.member-item-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.member-item-actions {
+  display: flex;
+  gap: 10rpx;
+}
+
+.member-item-action,
+.member-item-action-edit {
+  font-size: 24rpx;
+  color: #5c6bdc;
+  padding: 10rpx 20rpx;
+  background: rgba(92, 107, 220, 0.1);
+  border-radius: 10rpx;
+}
+
+.sibling-option {
+  padding: 15rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+}
+
+.option-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.family-name-input {
+  border: 2rpx solid #ddd;
+  border-radius: 12rpx;
+  padding: 15rpx;
+  font-size: 28rpx;
+  margin-bottom: 15rpx;
+}
+
+.btn-save-family-name {
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 12rpx;
+  padding: 15rpx;
+  font-size: 28rpx;
+}
+
+.menu-item {
+  padding: 15rpx;
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}

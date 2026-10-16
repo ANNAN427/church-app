@@ -1,0 +1,26 @@
+<view class="container">
+  <!-- 底层：全屏背景图 -->
+  <image class="bg-image" src="https://1689.1r1zhux.com/beads/bowl-bg.jpg" mode="aspectFill" />
+  
+  <!-- 功德值显示 -->
+  <view class="merit-display">
+    <text class="merit-label">功德值</text>
+    <text class="merit-number">{{hitCount}}</text>
+  </view>
+  
+  <!-- 功德 +1 提示 / 祝福语 -->
+  <text class="merit-text" wx:if="{{showBlessing}}">{{blessingText}}</text>
+  
+  <!-- 左下角功德值+ -->
+  <text class="total-merit-display">功德值 {{totalMerit}}</text>
+  
+  <!-- 右下角分享按钮 -->
+  <button class="share-btn" open-type="share">
+    <text class="share-text">好友分享</text>
+  </button>
+  
+  <!-- 顶层：木槌（右侧边缘，可点击）- 放在最后确保在最上层 -->
+  <view class="mallet-wrapper" bindtap="onHitBowl">
+    <image class="mallet-img {{isAnimating ? 'animate' : ''}}" src="https://1689.1r1zhux.com/beads/bowl-mallet.png" mode="aspectFit" />
+  </view>
+</view>

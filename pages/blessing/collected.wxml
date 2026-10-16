@@ -1,0 +1,26 @@
+<!-- 已收集福卡列表页面 -->
+<view class="container">
+  <view class="header">
+    <text class="title">我的福卡收藏</text>
+    <text class="count">共 {{collectedCards.length}} 张</text>
+  </view>
+
+  <view class="card-grid" wx:if="{{collectedCards.length > 0}}">
+    <view class="card-item" wx:for="{{collectedCards}}" wx:key="card_id" data-index="{{index}}" bindtap="onViewCard">
+      <image class="card-image" src="{{item.card_url}}" mode="aspectFill" lazy-load />
+      <view class="card-info">
+        <text class="card-blessing">{{item.blessing_text}}</text>
+        <text class="card-date">{{item.collect_date}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:else>
+    <text class="empty-icon">🎴</text>
+    <text class="empty-text">还没有收集到福卡</text>
+    <text class="empty-hint">每天来领取一张福卡吧</text>
+  </view>
+
+  <!-- 隐藏Canvas用于保存 -->
+  <canvas canvas-id="saveCanvas" style="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;"></canvas>
+</view>

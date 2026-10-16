@@ -1,0 +1,66 @@
+<!--pages/member/member.wxml-->
+<view class="container">
+  <!-- 中心人物 -->
+  <view class="center-person">
+    <view class="person-card">
+      <view class="person-avatar {{memberInfo.gender === 'male' ? 'male' : 'female'}}">
+        {{memberInfo.avatar}}
+      </view>
+      <view class="person-name">{{memberInfo.name}}</view>
+      <view class="person-relation">{{memberInfo.relation}}</view>
+    </view>
+  </view>
+
+  <!-- 长辈区域（上方） -->
+  <view class="relation-section elders">
+    <view class="add-btn" bindtap="addRelative" data-type="father">
+      <view class="add-icon">+</view>
+      <view class="add-text">添加父亲</view>
+    </view>
+    <view class="add-btn" bindtap="addRelative" data-type="mother">
+      <view class="add-icon">+</view>
+      <view class="add-text">添加母亲</view>
+    </view>
+  </view>
+
+  <!-- 平辈区域（左右） -->
+  <view class="relation-section peers">
+    <view class="add-btn" bindtap="addRelative" data-type="sibling">
+      <view class="add-icon">+</view>
+      <view class="add-text">添加兄弟</view>
+    </view>
+    
+    <!-- 已添加的子女显示 -->
+    <view class="existing-member" wx:if="{{existingChildren.length > 0}}" bindtap="viewChild" data-id="{{existingChildren[0].id}}">
+      <view class="member-avatar {{existingChildren[0].gender === 'male' ? 'male' : 'female'}}">
+        {{existingChildren[0].avatar}}
+      </view>
+      <view class="member-name">{{existingChildren[0].name}}</view>
+    </view>
+    
+    <view class="add-btn" bindtap="addRelative" data-type="spouse">
+      <view class="add-icon">+</view>
+      <view class="add-text">添加{{memberInfo.gender === 'male' ? '妻子' : '丈夫'}}</view>
+    </view>
+  </view>
+
+  <!-- 晚辈区域（下方） -->
+  <view class="relation-section juniors">
+    <view class="add-btn" bindtap="addRelative" data-type="daughter">
+      <view class="add-icon">+</view>
+      <view class="add-text">添加女儿</view>
+    </view>
+    <view class="add-btn" bindtap="addRelative" data-type="son">
+      <view class="add-icon">+</view>
+      <view class="add-text">添加儿子</view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="action-bar">
+    <button class="btn-delete" bindtap="deleteMember">删除</button>
+    <button class="btn-edit" bindtap="editMember">编辑信息</button>
+    <button class="btn-tree" bindtap="showBranchTree">显示分支图谱</button>
+    <button class="btn-cancel" bindtap="goBack">取消</button>
+  </view>
+</view>

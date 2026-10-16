@@ -1,0 +1,1 @@
+"use strict";const i=require("../../utils/request.js"),e={login:e=>i.request.post("/auth/c/doLogin",e,{isToken:!1,isPrefix:!1}),wechatLogin:e=>i.request.post("/auth/third/miniAPPLoginWithPhone",e,{isToken:!1,isPrefix:!1}),isLogin:()=>i.request.get("/auth/c/isLogin",{},{isPrefix:!1}),getLoginUser:()=>i.request.get("/auth/c/getLoginUser",{},{isPrefix:!1})};exports.loginApi=e;

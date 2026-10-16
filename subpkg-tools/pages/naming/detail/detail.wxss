@@ -1,0 +1,84 @@
+/* pages/naming/detail/detail.wxss */
+.container {
+  padding: 30rpx;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+}
+
+.header-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20rpx;
+  padding: 40rpx 30rpx;
+  margin-bottom: 30rpx;
+  text-align: center;
+  color: white;
+  box-shadow: 0 10rpx 30rpx rgba(102, 126, 234, 0.3);
+}
+
+.header-title {
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.header-score {
+  font-size: 32rpx;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 15rpx 30rpx;
+  border-radius: 50rpx;
+  display: inline-block;
+}
+
+.detail-section {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.08);
+}
+
+.detail-item {
+  margin-bottom: 30rpx;
+  padding-bottom: 30rpx;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: 30rpx;
+  color: #667eea;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+}
+
+.detail-value {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.detail-value.wuxing {
+  font-size: 32rpx;
+  color: #e74c3c;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 5rpx;
+}
+
+.btn-back {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 15rpx;
+  padding: 25rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-top: 20rpx;
+  box-shadow: 0 8rpx 20rpx rgba(102, 126, 234, 0.3);
+}

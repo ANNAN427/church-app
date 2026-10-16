@@ -1,0 +1,568 @@
+/* pages/profile/profile.wxss */
+.container {
+  padding: 20rpx;
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.login-section {
+  margin-bottom: 20rpx;
+}
+
+.login-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-icon {
+  width: 80rpx;
+  height: 80rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40rpx;
+}
+
+.login-icon::before {
+  content: '👤';
+}
+
+.login-title {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.login-desc {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 30rpx;
+}
+
+.login-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 40rpx;
+  padding: 20rpx 60rpx;
+  font-size: 28rpx;
+}
+
+.profile-header {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 20rpx;
+}
+
+.avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60rpx;
+}
+
+.avatar-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+
+.nickname {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  padding-left: 10rpx;
+}
+
+/* 个人功德 - v36 高对比度卡片 */
+.merit-section {
+  padding: 0 5rpx;
+  margin-bottom: 25rpx;
+}
+
+.merit-card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 35rpx;
+  box-shadow: 0 8rpx 32rpx rgba(102, 126, 234, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.merit-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6rpx;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.merit-top-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25rpx;
+}
+
+.merit-icon-circle {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+  box-shadow: 0 6rpx 20rpx rgba(102, 126, 234, 0.35);
+}
+
+.merit-emoji {
+  font-size: 44rpx;
+}
+
+.merit-info {
+  flex: 1;
+}
+
+.merit-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.merit-subtitle {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.merit-divider {
+  height: 1rpx;
+  background: linear-gradient(90deg, transparent, #e8e8e8, transparent);
+  margin: 20rpx 0;
+}
+
+.merit-stats {
+  text-align: center;
+  padding: 15rpx 0;
+}
+
+.stat-value {
+  font-size: 80rpx;
+  font-weight: bold;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  margin-bottom: 10rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #888;
+  letter-spacing: 2rpx;
+}
+
+.merit-hint {
+  text-align: center;
+  font-size: 22rpx;
+  color: #bbb;
+  margin-top: 15rpx;
+  padding-top: 15rpx;
+  border-top: 1rpx dashed #eee;
+}
+
+/* v33: 功德明细弹窗 */
+.merit-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.merit-modal {
+  width: 85%;
+  max-height: 80vh;
+  background: white;
+  border-radius: 24rpx;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+.modal-close {
+  font-size: 40rpx;
+  color: #999;
+  padding: 0 10rpx;
+}
+.modal-body {
+  flex: 1;
+  max-height: 60vh;
+  padding: 0 20rpx;
+}
+.log-header {
+  display: flex;
+  padding: 20rpx 10rpx;
+  border-bottom: 2rpx solid #eee;
+  font-size: 22rpx;
+  color: #999;
+  font-weight: bold;
+}
+.log-row {
+  display: flex;
+  padding: 18rpx 10rpx;
+  border-bottom: 1rpx solid #f5f5f5;
+  font-size: 24rpx;
+}
+.log-col-time {
+  width: 25%;
+  color: #666;
+}
+.log-col-action {
+  width: 30%;
+  color: #333;
+}
+.log-col-change {
+  width: 20%;
+  text-align: center;
+  font-weight: bold;
+}
+.log-positive {
+  color: #52c41a;
+}
+.log-negative {
+  color: #ff4d4f;
+}
+.log-col-balance {
+  width: 25%;
+  text-align: right;
+  color: #333;
+  font-weight: bold;
+}
+/* v35: 功德明细卡片样式 */
+.merit-card-list {
+  padding: 15rpx 0;
+}
+.merit-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fafafa;
+  border-radius: 16rpx;
+  padding: 24rpx 20rpx;
+  margin-bottom: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+.merit-card:active {
+  background: #f5f5f5;
+}
+.card-left {
+  flex: 1;
+}
+.card-action {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 8rpx;
+}
+.card-time {
+  font-size: 22rpx;
+  color: #999;
+}
+.card-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.card-change {
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-bottom: 4rpx;
+}
+.card-balance {
+  font-size: 22rpx;
+  color: #bbb;
+}
+.log-empty {
+  padding: 60rpx 0;
+  text-align: center;
+}
+.log-empty-text {
+  font-size: 28rpx;
+  color: #ccc;
+}
+.modal-footer {
+  padding: 20rpx 30rpx;
+  border-top: 1rpx solid #eee;
+  text-align: center;
+}
+.modal-total {
+  font-size: 28rpx;
+  color: #667eea;
+  font-weight: bold;
+}
+
+/* 我的愿望 */
+.wishes-section {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20rpx;
+  padding: 25rpx;
+  margin-bottom: 20rpx;
+}
+
+.wishes-list {
+  background: white;
+  border-radius: 15rpx;
+  padding: 20rpx;
+  margin-bottom: 15rpx;
+  max-height: 300rpx;
+  overflow-y: auto;
+}
+
+.wish-item {
+  padding: 15rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.wish-item:last-child {
+  border-bottom: none;
+}
+
+.wish-content {
+  font-size: 26rpx;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.wish-time {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.empty-wishes {
+  background: white;
+  border-radius: 15rpx;
+  padding: 40rpx;
+  text-align: center;
+  margin-bottom: 15rpx;
+}
+
+.empty-icon {
+  font-size: 50rpx;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.empty-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.add-wish-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15rpx;
+  padding: 20rpx;
+}
+
+.add-icon {
+  font-size: 32rpx;
+  color: white;
+}
+
+.add-text {
+  font-size: 26rpx;
+  color: white;
+}
+
+/* 家谱列表 */
+.family-trees-section {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20rpx;
+  padding: 25rpx;
+  margin-bottom: 20rpx;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-icon {
+  font-size: 40rpx;
+  margin-right: 15rpx;
+}
+
+.section-title {
+  font-size: 30rpx;
+  color: white;
+  font-weight: bold;
+}
+
+.family-tree-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+.tree-item {
+  background: white;
+  border-radius: 18rpx;
+  padding: 25rpx;
+  display: flex;
+  align-items: center;
+  gap: 15rpx;
+  box-shadow: 0 5rpx 20rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.tree-item:active {
+  transform: scale(0.98);
+}
+
+.tree-item.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 10rpx 30rpx rgba(102, 126, 234, 0.3);
+}
+
+.tree-icon {
+  font-size: 44rpx;
+}
+
+.tree-info {
+  flex: 1;
+}
+
+.tree-name {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+}
+
+.tree-item.active .tree-name {
+  color: white;
+}
+
+.tree-members {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.tree-item.active .tree-members {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.tree-check {
+  font-size: 36rpx;
+  color: #667eea;
+  font-weight: bold;
+}
+
+.tree-item.active .tree-check {
+  color: white;
+}
+
+.tree-edit {
+  font-size: 30rpx;
+  color: #ccc;
+  padding: 10rpx;
+}
+
+.tree-item.active .tree-edit {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tree-delete {
+  font-size: 30rpx;
+  color: #ff4757;
+  padding: 10rpx;
+}
+
+.tree-item.active .tree-delete {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.add-tree-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 18rpx;
+  padding: 25rpx;
+  margin-top: 20rpx;
+  border: 2rpx dashed rgba(255, 255, 255, 0.5);
+}
+
+.add-tree-btn .add-icon {
+  font-size: 36rpx;
+  color: white;
+}
+
+.add-tree-btn .add-text {
+  font-size: 28rpx;
+  color: white;
+  font-weight: bold;
+}
+

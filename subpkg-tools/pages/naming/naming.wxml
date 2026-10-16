@@ -1,0 +1,87 @@
+<!--pages/naming/naming.wxml - 移除不限选项-->
+<view class="container">
+  <view class="header">
+    <view class="title">免费取名</view>
+  </view>
+
+  <view class="form-section">
+    <view class="form-item">
+      <text class="form-label">输入姓氏</text>
+      <input class="form-input" placeholder="请输入姓氏" value="{{surname}}" bindinput="onSurnameInput"/>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">性别</text>
+      <view class="inline-options">
+        <label class="option-label {{genderIndex === 0 ? 'selected' : ''}}" bindtap="setGender" data-value="0">
+          <view class="option-circle {{genderIndex === 0 ? 'selected' : ''}}"></view>
+          男
+        </label>
+        <label class="option-label {{genderIndex === 1 ? 'selected' : ''}}" bindtap="setGender" data-value="1">
+          <view class="option-circle {{genderIndex === 1 ? 'selected' : ''}}"></view>
+          女
+        </label>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">字数</text>
+      <view class="inline-options">
+        <label class="option-label {{nameLength === 2 ? 'selected' : ''}}" bindtap="setNameLength" data-length="2">
+          <view class="option-rect {{nameLength === 2 ? 'selected' : ''}}"></view>
+          2 字
+        </label>
+        <label class="option-label {{nameLength === 3 ? 'selected' : ''}}" bindtap="setNameLength" data-length="3">
+          <view class="option-rect {{nameLength === 3 ? 'selected' : ''}}"></view>
+          3 字
+        </label>
+        <label class="option-label {{nameLength === 4 ? 'selected' : ''}}" bindtap="setNameLength" data-length="4">
+          <view class="option-rect {{nameLength === 4 ? 'selected' : ''}}"></view>
+          4 字
+        </label>
+      </view>
+    </view>
+
+    <button class="btn-generate" bindtap="generateNames">生成名字</button>
+  </view>
+
+  <view class="results-section" wx:if="{{nameResults.length > 0}}">
+    <view class="name-list">
+      <view class="name-item" wx:for="{{nameResults}}" wx:key="name">
+        <view class="name-title">推荐名字{{index + 1}}：{{item.name}}</view>
+        <view class="name-detail" id="nameDetail-{{index}}">
+          <view class="detail-line">- 字义：{{item.meaning}}</view>
+          <view class="detail-line">- 音形：{{item.tone}}</view>
+          <view class="detail-line">- 笔画：{{item.strokes}}</view>
+          <view class="detail-line">- 出处：{{item.source}}</view>
+        </view>
+        <view class="name-meta">
+          <text class="meta-score">分数：{{item.score}}</text>
+          <text class="meta-meaning">寓意：{{item.shortMeaning}}</text>
+        </view>
+        <view class="name-actions">
+          <button class="btn-action" bindtap="copyName" data-index="{{index}}">复制</button>
+          <button class="btn-action" bindtap="collectName" data-item="{{item}}">收藏</button>
+        </view>
+      </view>
+    </view>
+    
+    <button class="btn-regenerate" bindtap="regenerateNames">🔄 换一批</button>
+  </view>
+
+  <!-- 收藏列表 -->
+  <view class="collected-section" wx:if="{{collectedNames.length > 0}}">
+    <view class="section-title">⭐ 我的收藏（{{collectedNames.length}}个）</view>
+    <view class="collected-list">
+      <view class="collected-item" wx:for="{{collectedNames}}" wx:key="name">
+        <view class="collected-name">{{item.name}}</view>
+        <view class="collected-detail">{{item.shortMeaning}}</view>
+        <button class="btn-remove" bindtap="removeCollected" data-index="{{index}}">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="hint-section">
+    <view class="hint-text">[温馨提示] 本程序完全免费，名字推荐基于诗词文化与汉字美学，不含命理预测。</view>
+  </view>
+</view>

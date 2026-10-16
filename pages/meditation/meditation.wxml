@@ -1,0 +1,22 @@
+<view class="container">
+  <!-- 背景图 -->
+  <image class="bg-image" src="https://1689.1r1zhux.com/beads/meditation-bg-compressed.jpg" mode="aspectFill" />
+  
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 音乐列表（可左右滑动，双击播放/停止） -->
+    <scroll-view class="music-scroll" scroll-x="true" scroll-with-animation="true">
+      <view class="music-list">
+        <view class="music-item {{currentIndex === index ? 'active' : ''}}" wx:for="{{musicList}}" wx:key="index" bindtap="selectMusic" binddblclick="togglePlay" data-index="{{index}}">
+          <text class="music-name">{{item.name}}</text>
+          <text class="music-duration">{{item.duration}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  
+  <!-- 右下角分享按钮 -->
+  <button class="share-btn" open-type="share">
+    <text class="share-text">好友分享</text>
+  </button>
+</view>

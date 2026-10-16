@@ -1,0 +1,148 @@
+<!--pages/tree/tree.wxml-->
+<view class="container">
+  <view class="toolbar">
+    <button class="btn-expand" bindtap="expandAll">展开全部</button>
+    <button class="btn-collapse" bindtap="collapseAll">折叠全部</button>
+    <button class="btn-share" bindtap="shareTree">📤 分享</button>
+  </view>
+
+  <!-- 没有数据提示 -->
+  <view class="empty-data" wx:if="{{!hasData}}">
+    <text class="empty-icon">🌳</text>
+    <text class="empty-text">暂无数据</text>
+    <text class="empty-hint">请先在家谱页面添加成员</text>
+    <button class="btn-back-home" bindtap="goHome">返回首页</button>
+  </view>
+
+  <!-- 有数据时显示树形图 -->
+  <scroll-view scroll-x scroll-y class="tree-scroll" wx:if="{{hasData}}">
+    <view class="family-tree">
+      <!-- 高祖父辈 -->
+      <view class="generation-level" wx:if="{{generation1.length > 0}}">
+        <view class="generation-title">高祖父辈</view>
+        <view class="member-row">
+          <view class="member-box" wx:for="{{generation1}}" wx:key="id" bindtap="onMemberTap" data-id="{{item.id}}">
+            <view class="member-avatar {{item.gender === 'male' ? 'male' : 'female'}}">{{item.avatar}}</view>
+            <view class="member-name">{{item.name}}</view>
+          </view>
+        </view>
+        <view class="line-down" wx:if="{{generation2.length > 0}}"></view>
+      </view>
+
+      <!-- 曾祖父辈 -->
+      <view class="generation-level" wx:if="{{generation2.length > 0}}">
+        <view class="generation-title">曾祖父辈</view>
+        <view class="member-row">
+          <view class="member-box" wx:for="{{generation2}}" wx:key="id" bindtap="onMemberTap" data-id="{{item.id}}">
+            <view class="member-avatar {{item.gender === 'male' ? 'male' : 'female'}}">{{item.avatar}}</view>
+            <view class="member-name">{{item.name}}</view>
+          </view>
+        </view>
+        <view class="line-down" wx:if="{{generation3.length > 0}}"></view>
+      </view>
+
+      <!-- 祖父辈 -->
+      <view class="generation-level" wx:if="{{generation3.length > 0}}">
+        <view class="generation-title">祖父辈</view>
+        <view class="member-row">
+          <view class="member-box" wx:for="{{generation3}}" wx:key="id" bindtap="onMemberTap" data-id="{{item.id}}">
+            <view class="member-avatar {{item.gender === 'male' ? 'male' : 'female'}}">{{item.avatar}}</view>
+            <view class="member-name">{{item.name}}</view>
+          </view>
+        </view>
+        <view class="line-down" wx:if="{{generation4.length > 0}}"></view>
+      </view>
+
+      <!-- 父辈 -->
+      <view class="generation-level" wx:if="{{generation4.length > 0}}">
+        <view class="generation-title">父辈</view>
+        <view class="member-row">
+          <view class="member-box" wx:for="{{generation4}}" wx:key="id" bindtap="onMemberTap" data-id="{{item.id}}">
+            <view class="member-avatar {{item.gender === 'male' ? 'male' : 'female'}}">{{item.avatar}}</view>
+            <view class="member-name">{{item.name}}</view>
+          </view>
+        </view>
+        <view class="line-down" wx:if="{{generation5.length > 0}}"></view>
+      </view>
+
+      <!-- 自己辈 -->
+      <view class="generation-level" wx:if="{{generation5.length > 0}}">
+        <view class="generation-title">自己辈</view>
+        <view class="member-row">
+          <view class="member-box self" wx:for="{{generation5}}" wx:key="id" bindtap="onMemberTap" data-id="{{item.id}}">
+            <view class="member-avatar {{item.gender === 'male' ? 'male' : 'female'}}">{{item.avatar}}</view>
+            <view class="member-name">{{item.name}}</view>
+          </view>
+        </view>
+        <view class="line-down" wx:if="{{generation6.length > 0}}"></view>
+      </view>
+
+      <!-- 子辈 -->
+      <view class="generation-level" wx:if="{{generation6.length > 0}}">
+        <view class="generation-title">子辈</view>
+        <view class="member-row">
+          <view class="member-box" wx:for="{{generation6}}" wx:key="id" bindtap="onMemberTap" data-id="{{item.id}}">
+            <view class="member-avatar {{item.gender === 'male' ? 'male' : 'female'}}">{{item.avatar}}</view>
+            <view class="member-name">{{item.name}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 查询模式提示 -->
+  <view class="query-hint" wx:if="{{queryMode}}">
+    <text wx:if="{{selectedMembers.length === 0}}">请选择第 1 位成员</text>
+    <text wx:if="{{selectedMembers.length === 1}}">✅ 已选：{{selectedMembers[0].name}}，请选择第 2 位成员</text>
+    <text wx:if="{{selectedMembers.length === 2}}">正在查询...</text>
+  </view>
+
+  <!-- 关系查询结果弹窗 -->
+  <view class="modal" wx:if="{{showResultModal}}" bindtap="closeResultModal">
+    <view class="modal-content" catchtap="stopPropagation">
+      <view class="modal-header">
+        <text class="modal-title">🔍 关系查询结果</text>
+        <text class="close" bindtap="closeResultModal">×</text>
+      </view>
+      <view class="modal-body">
+        <view class="result-members">
+          <view class="result-member">
+            <view class="member-avatar-small">{{memberA.avatar}}</view>
+            <view class="member-name-small">{{memberA.name}}</view>
+          </view>
+          <view class="relation-arrow">⟷</view>
+          <view class="result-member">
+            <view class="member-avatar-small">{{memberB.avatar}}</view>
+            <view class="member-name-small">{{memberB.name}}</view>
+          </view>
+        </view>
+
+        <view class="result-section">
+          <view class="result-title">📌 双向称谓</view>
+          <view class="result-item">
+            <text class="result-label">{{memberA.name}} 称呼 {{memberB.name}}：</text>
+            <text class="result-value highlight">{{relationResult.titleAB}}</text>
+          </view>
+          <view class="result-item">
+            <text class="result-label">{{memberB.name}} 称呼 {{memberA.name}}：</text>
+            <text class="result-value highlight">{{relationResult.titleBA}}</text>
+          </view>
+        </view>
+
+        <view class="result-section">
+          <view class="result-title">📊 关系详情</view>
+          <view class="result-item">
+            <text class="result-label">辈分差：</text>
+            <text class="result-value">{{relationResult.generationDiff}} 代</text>
+          </view>
+          <view class="result-item">
+            <text class="result-label">关系路径：</text>
+            <text class="result-value">{{relationResult.path}}</text>
+          </view>
+        </view>
+
+        <button class="btn-close" bindtap="closeResultModal">关闭</button>
+      </view>
+    </view>
+  </view>
+</view>

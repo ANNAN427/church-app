@@ -1,0 +1,88 @@
+/* 福卡详情页 - WXSS (v31-fix: Canvas 本地生成福卡) */
+.container {
+  background: #f5f0eb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 32rpx;
+}
+
+.card-wrapper {
+  width: 100%;
+  margin-top: 32rpx;
+  border-radius: 24rpx;
+  overflow: hidden;
+}
+
+.card-wrapper .card-image {
+  width: 100%;
+  height: 1200rpx;
+  display: block;
+}
+
+.card-wrapper .card-placeholder {
+  width: 100%;
+  height: 1200rpx;
+  background: #c41e3a;
+  border: 8rpx solid #f0c040;
+  border-radius: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-placeholder .card-title {
+  color: #f0c040;
+  font-size: 36rpx;
+  margin-bottom: 40rpx;
+}
+
+.card-placeholder .card-blessing {
+  color: #ffffff;
+  font-size: 56rpx;
+  font-weight: bold;
+  margin-bottom: 40rpx;
+}
+
+.card-placeholder .card-footer {
+  color: #f0c040;
+  font-size: 28rpx;
+}
+
+.action-bar {
+  width: 100%;
+  display: flex;
+  gap: 24rpx;
+  margin-top: 48rpx;
+  margin-bottom: 48rpx;
+}
+
+.action-bar .btn-save {
+  flex: 1;
+  height: 96rpx;
+  border-radius: 48rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  background: linear-gradient(135deg, #d4a574, #c8975e);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-bar .btn-share {
+  flex: 1;
+  height: 96rpx;
+  border-radius: 48rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  background: linear-gradient(135deg, gold, #ffc700);
+  color: #8b4513;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

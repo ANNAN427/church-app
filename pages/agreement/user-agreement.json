@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "用户协议",
+  "usingComponents": {
+    "main-container": "../../components/main-container/main-container"
+  }
+}

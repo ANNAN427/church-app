@@ -1,0 +1,79 @@
+<!--pages/almanac/almanac.wxml-->
+<view class="container">
+  <view class="header-section">
+    <view class="header-title">老皇历</view>
+    <picker mode="date" value="{{date}}" bindchange="onDateChange">
+      <view class="date-picker">{{date}}</view>
+    </picker>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-section" wx:if="{{loading}}">
+    <view class="loading-icon">🔮</view>
+    <view class="loading-text">AI 查询中...</view>
+  </view>
+
+  <!-- 基本信息（始终显示） -->
+  <view class="info-card">
+    <view class="info-row">
+      <view class="info-label">公历</view>
+      <view class="info-value">{{date}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">农历</view>
+      <view class="info-value">{{lunarDate}}</view>
+    </view>
+    <view class="info-row">
+      <view class="info-label">星期</view>
+      <view class="info-value">{{weekDay}}</view>
+    </view>
+  </view>
+
+  <!-- AI 查询结果 -->
+  <view class="almanac-section" wx:if="{{almanacData && !loading}}">
+
+    <view class="suitable-card">
+      <view class="card-title suitable">宜</view>
+      <view class="card-content">
+        <text wx:for="{{almanacData.suitable}}" wx:key="*this" class="tag">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="avoidance-card">
+      <view class="card-title avoidance">忌</view>
+      <view class="card-content">
+        <text wx:for="{{almanacData.avoidance}}" wx:key="*this" class="tag avoidance-tag">{{item}}</text>
+      </view>
+    </view>
+
+    <view class="detail-card">
+      <view class="detail-row">
+        <view class="detail-label">冲煞</view>
+        <view class="detail-value">{{almanacData.conflict}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-label">五行</view>
+        <view class="detail-value">{{almanacData.fiveElements}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-label">彭祖百忌</view>
+        <view class="detail-value">{{almanacData.PengZu}}</view>
+      </view>
+      <view class="detail-row">
+        <view class="detail-label">吉神方位</view>
+        <view class="detail-value">
+          <view>早：{{almanacData.gods.morning}}</view>
+          <view>中：{{almanacData.gods.noon}}</view>
+          <view>晚：{{almanacData.gods.evening}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="analysis-card">
+      <view class="analysis-title">📖 详细分析</view>
+      <view class="analysis-content">{{almanacData.analysis}}</view>
+    </view>
+  </view>
+
+  <button class="btn-share" bindtap="onShare">分享给好友</button>
+</view>

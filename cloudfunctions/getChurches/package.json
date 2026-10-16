@@ -1,0 +1,9 @@
+{
+  "name": "getChurches",
+  "version": "1.0.0",
+  "description": "从微信云数据库获取教堂数据",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

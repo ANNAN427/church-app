@@ -1,0 +1,75 @@
+<view class="container">
+  <!-- Hero Image -->
+  <view class="hero-section" wx:if="{{temple.images && temple.images.length > 0 && !heroFailed}}">
+    <image class="hero-image" src="{{temple.images[0]}}" mode="aspectFill" binderror="onImageError" />
+  </view>
+
+  <!-- Temple Name Header -->
+  <view class="name-header">
+    <view class="temple-name">{{temple.name}}</view>
+    <view class="temple-province">📍 {{temple.province}}</view>
+  </view>
+
+  <!-- Basic Info Card -->
+  <view class="info-card">
+    <view class="info-title">基本信息</view>
+    <view class="info-row" wx:if="{{temple.address}}">
+      <text class="info-label">📍 地址</text>
+      <text class="info-value">{{temple.address}}</text>
+    </view>
+    <view class="info-row" wx:if="{{temple.phone}}">
+      <text class="info-label">📞 电话</text>
+      <text class="info-value">{{temple.phone}}</text>
+    </view>
+    <view class="info-row" wx:if="{{temple.ticket}}">
+      <text class="info-label">🎫 门票</text>
+      <text class="info-value">{{temple.ticket}}</text>
+    </view>
+    <view class="info-row" wx:if="{{temple.openTime}}">
+      <text class="info-label">🕐 开放时间</text>
+      <text class="info-value">{{temple.openTime}}</text>
+    </view>
+  </view>
+
+  <!-- History Section -->
+  <view class="content-card" wx:if="{{temple.history}}">
+    <view class="card-title">📜 历史沿革</view>
+    <view class="card-content">{{temple.history}}</view>
+  </view>
+
+  <!-- Architecture Section -->
+  <view class="content-card" wx:if="{{temple.architecture}}">
+    <view class="card-title">🏛️ 建筑格局</view>
+    <view class="card-content">{{temple.architecture}}</view>
+  </view>
+
+  <!-- Features Section -->
+  <view class="content-card" wx:if="{{temple.features}}">
+    <view class="card-title">✨ 主要特色</view>
+    <view class="card-content">{{temple.features}}</view>
+  </view>
+
+  <!-- Image Gallery -->
+  <view class="gallery-card" wx:if="{{temple.images && temple.images.length > 0}}">
+    <view class="card-title">📸 寺庙图片</view>
+    <view class="image-gallery">
+      <image class="gallery-image" src="{{item}}" mode="widthFix" wx:for="{{temple.images}}" wx:key="index" bindtap="previewImage" data-index="{{index}}" binderror="onImageError" wx:if="{{failedImages.indexOf(index) === -1}}" />
+    </view>
+    <view class="gallery-empty" wx:if="{{failedImages.length === temple.images.length}}">
+      <view class="empty-icon">🖼️</view>
+      <view class="empty-text">图片加载失败，请尝试从后台重新上传</view>
+    </view>
+  </view>
+
+  <!-- Action Buttons -->
+  <view class="action-bar">
+    <view class="action-btn" bindtap="shareTemple">
+      <text class="btn-icon">📤</text>
+      <text class="btn-text">分享</text>
+    </view>
+    <view class="action-btn" bindtap="backToList">
+      <text class="btn-icon">📋</text>
+      <text class="btn-text">返回列表</text>
+    </view>
+  </view>
+</view>

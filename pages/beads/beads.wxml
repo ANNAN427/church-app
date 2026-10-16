@@ -1,0 +1,34 @@
+<view class="container">
+  <!-- 底层：固定背景（佛像图全程不动） -->
+  <image class="bg-image" src="https://1689.1r1zhux.com/beads/beads-bg.jpg" mode="aspectFill" />
+  
+  <!-- 顶层右侧分享按钮 -->
+  <button class="share-btn" open-type="share">
+    <text class="share-text">好友分享</text>
+  </button>
+  
+  <!-- 计数器 -->
+  <view class="count-display">
+    <text class="count">{{count}}</text>
+  </view>
+  
+  <!-- 左下角功德值 + -->
+  <view class="total-merit-display">功德值 {{totalMerit}}</view>
+  
+  <!-- 中层：隐形引导线容器 -->
+  <view class="guide-track" id="guideTrack">
+    <!-- 上层：12 颗独立珠子（沿引导线垂直排列） -->
+    <view 
+      class="bead-item {{draggingIndex === index ? 'dragging' : ''}}"
+      wx:for="{{beads}}"
+      wx:key="id"
+      data-index="{{index}}"
+      bindtouchstart="onBeadTouchStart"
+      bindtouchmove="onBeadTouchMove"
+      bindtouchend="onBeadTouchEnd"
+      style="transform: translateY({{item.offset}}px); transition: {{item.transition}}"
+    >
+      <image class="bead-img" src="{{item.src}}" mode="widthFix" lazy-load />
+    </view>
+  </view>
+</view>

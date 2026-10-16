@@ -1,0 +1,22 @@
+<!--pages/daily-draw/daily-draw-start.wxml-->
+<view class="container">
+  <view class="header">
+    <text class="title">每日心语</text>
+  </view>
+  <view class="cards">
+    <view class="num-card">
+      <text class="num-text">{{tens}}</text>
+    </view>
+    <view class="num-card">
+      <text class="num-text">{{ones}}</text>
+    </view>
+  </view>
+  <view class="disclaimer">
+    <text class="dis-text">内容源自传统诗签文化，用于自我反思与行动参考</text>
+  </view>
+  <view class="btn-wrapper">
+    <view class="draw-btn {{isDrawing ? 'disabled' : ''}}" bindtap="startDraw">
+      <text class="btn-text">{{isDrawing ? '开启中...' : '开启能量'}}</text>
+    </view>
+  </view>
+</view>

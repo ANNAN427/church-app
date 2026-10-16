@@ -1,0 +1,42 @@
+<!-- pages/pastor-chat/pastor-chat.wxml -->
+<view class="chat-container">
+  <view class="chat-header">
+    <view class="header-avatar">✝️</view>
+    <view class="header-info">
+      <text class="header-title">智慧牧人</text>
+      <text class="header-subtitle">属灵导师，为您解答信仰困惑</text>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="message-list" scroll-into-view="{{scrollToView}}" scroll-with-animation="true">
+    <view wx:for="{{messages}}" wx:key="id" id="{{item.id}}" class="message-item {{item.role}}">
+      <view class="message-avatar">{{item.role === 'user' ? '👤' : '✝️'}}</view>
+      <view class="message-bubble">
+        <text class="message-content">{{item.content}}</text>
+      </view>
+    </view>
+    
+    <view wx:if="{{isThinking}}" class="message-item ai">
+      <view class="message-avatar">✝️</view>
+      <view class="message-bubble thinking">
+        <text>智慧牧人正在思考...</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="quick-questions">
+    <text class="quick-title">常见问题：</text>
+    <scroll-view scroll-x class="quick-list">
+      <view wx:for="{{quickQuestions}}" wx:key="*this" class="quick-item" data-question="{{item}}" bindtap="sendQuickQuestion">
+        <text>{{item}}</text>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view class="input-area">
+    <textarea class="input-box" placeholder="请输入您的问题..." value="{{inputText}}" bindinput="onInput" auto-height confirm-type="send" bindconfirm="sendMessage" />
+    <view class="send-btn" bindtap="sendMessage">
+      <text>发送</text>
+    </view>
+  </view>
+</view>

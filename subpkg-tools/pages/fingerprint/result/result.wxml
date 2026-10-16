@@ -1,0 +1,108 @@
+<view class="container">
+  <!-- 结果内容 -->
+  <view class="result-content" wx:if="{{resultData}}">
+    <!-- 运势总览卡片 -->
+    <view class="result-header">
+      <view class="header-decoration">
+        <text class="deco-icon">✦</text>
+        <text class="deco-icon">✦</text>
+        <text class="deco-icon">✦</text>
+      </view>
+      <text class="result-type">{{resultData.type}}</text>
+      <view class="header-divider"></view>
+      <text class="result-summary">{{resultData.summary}}</text>
+      <view class="dou-count-badge">
+        <text class="badge-text">{{resultData.douCount}}斗{{5-resultData.douCount}}簸</text>
+      </view>
+    </view>
+
+    <!-- 手指组合展示 -->
+    <view class="finger-combo-section" wx:if="{{resultData.fingerDetails}}">
+      <view class="combo-title">手指组合</view>
+      <view class="combo-tags">
+        <view class="combo-tag" wx:for="{{resultData.fingerDetails}}" wx:key="index">
+          <text class="combo-finger">{{item.name}}</text>
+          <text class="combo-value {{item.value==='斗'?'value-dou':item.value==='簸箕'?'value-ji':'value-empty'}}">{{item.value}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 诗曰 -->
+    <view class="result-section poetry-section">
+      <view class="section-header">
+        <text class="section-icon">📜</text>
+        <text class="section-title">诗曰</text>
+      </view>
+      <text class="section-content poetry-content">{{resultData.poetry}}</text>
+    </view>
+
+    <!-- 性格 -->
+    <view class="result-section">
+      <view class="section-header">
+        <text class="section-icon">🧠</text>
+        <text class="section-title">性格分析</text>
+      </view>
+      <text class="section-content">{{resultData.nature}}</text>
+    </view>
+
+    <!-- 婚姻 -->
+    <view class="result-section">
+      <view class="section-header">
+        <text class="section-icon">💑</text>
+        <text class="section-title">婚姻感情</text>
+      </view>
+      <text class="section-content">{{resultData.marriage}}</text>
+    </view>
+
+    <!-- 适合职业 -->
+    <view class="result-section">
+      <view class="section-header">
+        <text class="section-icon">💼</text>
+        <text class="section-title">适合职业</text>
+      </view>
+      <text class="section-content">{{resultData.occupation}}</text>
+    </view>
+
+    <!-- 健康 -->
+    <view class="result-section">
+      <view class="section-header">
+        <text class="section-icon">🏥</text>
+        <text class="section-title">健康提示</text>
+      </view>
+      <text class="section-content">{{resultData.healthy}}</text>
+    </view>
+
+    <!-- 运势 -->
+    <view class="result-section fortune-section">
+      <view class="section-header">
+        <text class="section-icon">🔮</text>
+        <text class="section-title">一生运势</text>
+      </view>
+      <text class="section-content fortune-content">{{resultData.fortune}}</text>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button class="action-btn primary" bindtap="restart">
+        <text class="btn-icon">🔄</text>
+        <text class="btn-text">重新测算</text>
+      </button>
+      <button class="action-btn secondary" bindtap="onBack">
+        <text class="btn-icon">🔙</text>
+        <text class="btn-text">返回修改</text>
+      </button>
+    </view>
+
+    <!-- 免责声明 -->
+    <view class="disclaimer">
+      <text class="disclaimer-text">本测算仅供娱乐参考，命运掌握在自己手中</text>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <text class="empty-icon">🔮</text>
+    <text class="empty-text">暂无测算结果</text>
+    <button class="empty-btn" bindtap="restart">开始测算</button>
+  </view>
+</view>

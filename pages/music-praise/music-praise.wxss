@@ -1,0 +1,121 @@
+/* pages/music-praise/music-praise.wxss */
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 30rpx 40rpx;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.header-icon {
+  font-size: 100rpx;
+  margin-bottom: 20rpx;
+}
+
+.header-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 10rpx;
+}
+
+.header-subtitle {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.music-list {
+  flex: 1;
+  padding: 30rpx;
+  background: #fff;
+  border-radius: 40rpx 40rpx 0 0;
+  overflow-y: auto;
+}
+
+.music-item {
+  display: flex;
+  align-items: center;
+  padding: 25rpx 30rpx;
+  margin-bottom: 20rpx;
+  background: #f5f5f5;
+  border-radius: 20rpx;
+  transition: all 0.3s;
+}
+
+.music-item.playing {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.music-item.playing .music-title,
+.music-item.playing .music-artist,
+.music-item.playing .music-duration {
+  color: #fff;
+}
+
+.music-icon {
+  font-size: 50rpx;
+  margin-right: 20rpx;
+}
+
+.music-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.music-title {
+  font-size: 30rpx;
+  color: #333;
+  margin-bottom: 8rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-artist {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.music-duration {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.player-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx 40rpx;
+  background: #fff;
+  border-top: 1rpx solid #eee;
+}
+
+.player-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.player-title {
+  font-size: 28rpx;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-controls {
+  display: flex;
+  gap: 30rpx;
+}
+
+.control-btn {
+  font-size: 50rpx;
+  padding: 10rpx 20rpx;
+}

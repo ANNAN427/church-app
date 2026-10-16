@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "恭请佛尊入祠",
+  "usingComponents": {
+    "main-container": "../../../components/main-container/main-container"
+  }
+}

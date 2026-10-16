@@ -1,0 +1,2 @@
+page,view,text,image,button,input,scroll-view,swiper,form,label{box-sizing:border-box;line-height:normal}button{display:flex;align-items:center;justify-content:center;border:none}.top-section{display:flex;flex-direction:column;width:100%}.records-scroll{width:100%;flex:1;overflow:hidden}.common-btn-flex{display:flex;justify-content:center;align-items:center;gap:10rpx}
+page{--status-bar-height:25px;--top-window-height:0px;--window-top:0px;--window-bottom:0px;--window-left:0px;--window-right:0px;--window-magin:0px}[data-c-h="true"]{display: none !important;}

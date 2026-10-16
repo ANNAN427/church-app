@@ -1,0 +1,245 @@
+<!-- 美美历程 - 梦想目标追踪 (v31 4步层级递进版) -->
+<view class="page-container">
+  <!-- 顶部标题 -->
+  <view class="header">
+    <text class="title">美美历程</text>
+    <text class="subtitle">把日子过出光来</text>
+  </view>
+
+  <!-- Tab 切换 -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'ongoing' ? 'active' : ''}}" bindtap="switchTab" data-tab="ongoing">
+      <text>进行中</text>
+    </view>
+    <view class="tab-item {{activeTab === 'completed' ? 'active' : ''}}" bindtap="switchTab" data-tab="completed">
+      <text>已完成</text>
+    </view>
+  </view>
+
+  <!-- 梦想列表 -->
+  <scroll-view class="dream-list" scroll-y>
+    <!-- 空状态 - 第1步入口 -->
+    <view class="empty-state" wx:if="{{emptyState}}">
+      <text class="empty-illustration">✨</text>
+      <text class="empty-text">还没有许下梦想</text>
+      <text class="empty-hint">点击下方按钮，种下第一个心愿吧～</text>
+      <view class="create-btn" bindtap="showWizard">许下第一个梦想</view>
+    </view>
+
+    <!-- 梦想卡片列表 -->
+    <view class="dream-card {{activeTab}}" wx:for="{{activeTab === 'ongoing' ? ongoing : completed}}" wx:key="id" bindtap="showDreamDetail" data-id="{{item.id}}">
+      <view class="card-header">
+        <text class="card-name">{{item.name}}</text>
+        <view class="card-status-tag">
+          <text wx:if="{{item.status === 'ongoing'}}">🌱 进行中</text>
+          <text wx:elif="{{item.status === 'achieved'}}">✨ 已达成</text>
+          <text wx:else>🌙 未达成</text>
+        </view>
+      </view>
+      <view class="card-deadline">
+        <text wx:if="{{item.deadline}}">{{item.deadline}}</text>
+        <text wx:if="{{item.completedAt}}" class="completed-note"> · {{item.status === 'achieved' ? '已达成' : '未达成'}}</text>
+      </view>
+      <view class="card-energy" wx:if="{{item.energyUsed}}">
+        <text>注入能量 {{item.energyUsed}} ⚡</text>
+      </view>
+      <!-- 进行中梦想显示倒计时 -->
+      <view class="card-countdown" wx:if="{{item.status === 'ongoing' && item.deadline}}">
+        <text>⏰ {{item.countdownText}}</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- v31: 4步向导弹窗（层级递进） -->
+  <view class="overlay" wx:if="{{showWizard}}">
+    <view class="form-card" catchtap="">
+      <!-- 进度指示器 -->
+      <view class="step-indicator">
+        <view class="step-dot {{currentStep >= 0 ? 'active' : ''}}">
+          <text>1</text>
+        </view>
+        <view class="step-line {{currentStep >= 1 ? 'active' : ''}}"></view>
+        <view class="step-dot {{currentStep >= 1 ? 'active' : ''}}">
+          <text>2</text>
+        </view>
+        <view class="step-line {{currentStep >= 2 ? 'active' : ''}}"></view>
+        <view class="step-dot {{currentStep >= 2 ? 'active' : ''}}">
+          <text>3</text>
+        </view>
+        <view class="step-line {{currentStep >= 3 ? 'active' : ''}}"></view>
+        <view class="step-dot {{currentStep >= 3 ? 'active' : ''}}">
+          <text>4</text>
+        </view>
+      </view>
+
+      <!-- 第1步：写下你的小目标 -->
+      <view class="step-content" wx:if="{{currentStep === 0}}">
+        <view class="step-title-row">
+          <text class="step-emoji">🎯</text>
+          <text class="step-title">第1步 · 写下你的小目标</text>
+        </view>
+        <view class="step-poem">
+          <text>谁还没个闪闪发光的念头呢？</text>
+          <text>没有梦想的人生，就像奶茶没加珍珠——少了灵魂。</text>
+          <text>在这里，记下你最近最想实现的那个小目标</text>
+          <text>（不管多大，都值得被认真对待）</text>
+        </view>
+        <view class="form-item">
+          <text class="form-label">梦想名称</text>
+          <input class="form-input" placeholder="比如：三个月学会弹吉他" value="{{stepData.name}}" bindinput="onWizardNameInput" focus="{{showWizard && currentStep === 0}}" />
+        </view>
+      </view>
+
+      <!-- 第2步：赏味期限 -->
+      <view class="step-content" wx:if="{{currentStep === 1}}">
+        <view class="step-title-row">
+          <text class="step-emoji">⏳</text>
+          <text class="step-title">第2步 · 给它一个"赏味期限"</text>
+        </view>
+        <view class="step-poem">
+          <text>梦想和酸奶一样，太久了会过期；</text>
+          <text>和导航路线一样，走太远会迷路。</text>
+          <text>给梦想一个截日期吧，不是压力，是提醒自己——</text>
+          <text>"喂，该出发啦！" ⏰</text>
+        </view>
+        <view class="form-item">
+          <text class="form-label">选个你心仪的达成时间</text>
+          <picker mode="date" value="{{stepData.deadline}}" bindchange="onWizardDeadlineChange">
+            <view class="picker-display">
+              <text>{{stepData.deadline ? stepData.deadline : '选择截止日期'}}</text>
+            </view>
+          </picker>
+        </view>
+      </view>
+
+      <!-- 第3步：注入能量 -->
+      <view class="step-content" wx:if="{{currentStep === 2}}">
+        <view class="step-title-row">
+          <text class="step-emoji">✨</text>
+          <text class="step-title">第3步 · 注入你的"能量值"</text>
+        </view>
+        <view class="step-poem">
+          <text>念念不忘，必有回响；</text>
+          <text>心有所念，终有所成。</text>
+          <text>你每一点坚持、每一次努力，都会变成能量值，给梦想加速充电～</text>
+          <text wx:if="{{totalMerit > 0}}">你当前可用的功德能量值是：{{totalMerit}}（快来注入吧！）</text>
+          <text wx:else>当前功德值为 0，先去功德木鱼、静心念珠、解压颂钵攒点功德能量吧～</text>
+        </view>
+        <view class="form-item">
+          <text class="form-label">注入能量值</text>
+          <input class="form-input" type="number" placeholder="{{totalMerit > 0 ? '输入要投入的功德值（最多' + totalMerit + '）' : '功德值为0，无法注入'}}" value="{{stepData.energy}}" bindinput="onWizardEnergyInput" disabled="{{totalMerit <= 0}}" />
+        </view>
+      </view>
+
+      <!-- 第4步：确认种下 + 暖心小贴士 -->
+      <view class="step-content" wx:if="{{currentStep === 3}}">
+        <view class="step-title-row">
+          <text class="step-emoji"></text>
+          <text class="step-title">第4步 · 确认种下</text>
+        </view>
+        <view class="confirm-card">
+          <view class="confirm-row">
+            <text class="confirm-label">梦想名称</text>
+            <text class="confirm-value">{{stepData.name}}</text>
+          </view>
+          <view class="confirm-row">
+            <text class="confirm-label">截止日期</text>
+            <text class="confirm-value">{{stepData.deadline}}</text>
+          </view>
+          <view class="confirm-row">
+            <text class="confirm-label">注入能量</text>
+            <text class="confirm-value">{{stepData.energy}} ⚡</text>
+          </view>
+        </view>
+        <view class="tip-card">
+          <text class="tip-title"> 暖心小贴士</text>
+          <view class="tip-item">
+            <text> 如果约定时间到，梦想实现了——恭喜宝子！我们会为你放一串小烟花，并帮你继续攒能量。</text>
+          </view>
+          <view class="tip-item">
+            <text> 如果暂时没实现——也没关系！功德能量值会全额退回你的账户，你可以留着它，去点亮下一个更值得的梦想。</text>
+          </view>
+        </view>
+        <view class="closing-text">
+          <view class="closing-title">最后想说的话</view>
+          <view class="closing-body">
+            <text>「美美历程」不是一个工具，是一个陪你把日子过出光来的地方。</text>
+            <text>它不预测未来，不算命改运。它只是相信——你把时间花在哪里，哪里就会发光。</text>
+            <text>我们想做的，就是帮你记下每一段路，攒下每一份向上的力量，让平凡的日子，也能闪闪发亮。</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 按钮区 -->
+      <view class="form-actions">
+        <view class="btn-cancel" bindtap="hideWizard" wx:if="{{currentStep === 0}}">取消</view>
+        <view class="btn-prev" bindtap="prevStep" wx:if="{{currentStep > 0 && currentStep < 3}}">上一步</view>
+        <view class="btn-next" bindtap="nextStep" wx:if="{{currentStep < 3}}">下一步</view>
+        <view class="btn-submit" bindtap="nextStep" wx:if="{{currentStep === 3}}">🌱 种下梦想</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 梦想详情弹窗 -->
+  <view class="overlay" wx:if="{{showDreamDetail}}" bindtap="hideDreamDetail">
+    <view class="detail-card" catchtap="">
+      <view class="detail-header">
+        <text class="detail-name">{{currentDream.name}}</text>
+        <text class="detail-close" bindtap="hideDreamDetail">✕</text>
+      </view>
+      <view class="detail-body">
+        <view class="detail-info-row">
+          <text class="detail-label">截止日期</text>
+          <text class="detail-value">{{currentDream.deadline}}</text>
+        </view>
+        <view class="detail-info-row">
+          <text class="detail-label">已注入能量</text>
+          <text class="detail-value">{{currentDream.energyUsed || 0}} ⚡</text>
+        </view>
+        <view class="detail-info-row">
+          <text class="detail-label">状态</text>
+          <text class="detail-value">
+            <text wx:if="{{currentDream.status === 'ongoing'}}">🌱 进行中</text>
+            <text wx:elif="{{currentDream.status === 'achieved'}}">✨ 已达成</text>
+            <text wx:else>🌙 已过期</text>
+          </text>
+        </view>
+        <view class="detail-hint" wx:if="{{currentDream.status === 'ongoing'}}">
+          <text>{{deadlineHint}}</text>
+        </view>
+      </view>
+      <view class="detail-actions" wx:if="{{currentDream.status === 'ongoing'}}">
+        <view class="btn-achieve" bindtap="checkDream" data-id="{{currentDream.id}}"> 我实现了！</view>
+        <view class="btn-delete" bindtap="deleteDream" data-id="{{currentDream.id}}">删除</view>
+      </view>
+      <view class="detail-actions" wx:if="{{currentDream.status !== 'ongoing'}}">
+        <view class="btn-delete" bindtap="deleteDream" data-id="{{currentDream.id}}">删除</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 庆祝动画 -->
+  <view class="celebration" wx:if="{{showCelebration}}">
+    <view class="celebration-content">
+      <canvas type="2d" id="celebrationCanvas" class="celebration-canvas" wx:if="{{showCelebrationCanvas}}"></canvas>
+      <text class="celebration-emoji"></text>
+      <text class="celebration-text">{{celebrationText}}</text>
+    </view>
+  </view>
+
+  <!-- 未达成透明弹窗 -->
+  <view class="not-achieved-overlay" wx:if="{{showNotAchieved}}">
+    <view class="not-achieved-dialog">
+      <text class="not-achieved-emoji">🌙</text>
+      <text class="not-achieved-text">没关系，每一次努力都算数 🌙 能量已全额返还，去点亮下一个梦吧</text>
+    </view>
+  </view>
+
+  <!-- v35: 底部固定新增区域 -->
+  <view class="bottom-add-section" wx:if="{{!emptyState}}">
+    <view class="bottom-add-btn" bindtap="showWizard">
+      <text class="bottom-add-icon">✨</text>
+      <text class="bottom-add-text">新增梦想</text>
+    </view>
+  </view>
+</view>

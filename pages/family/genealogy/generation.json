@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "辈分",
+  "usingComponents": {
+    "st-icons": "../../../components/st-icons/st-icons",
+    "main-container": "../../../components/main-container/main-container"
+  }
+}

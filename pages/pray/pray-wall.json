@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "祈福墙",
+  "usingComponents": {
+    "st-icons": "../../components/st-icons/st-icons"
+  }
+}

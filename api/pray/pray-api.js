@@ -1,0 +1,1 @@
+"use strict";const r=require("../../utils/request.js"),e={prayAddRecord:e=>r.request.post("/biz/prayrecords/add",e),prayGetRecordList:e=>r.request.get("/biz/prayrecords/page",e),prayGetRecordCount:e=>r.request.get("/biz/prayrecords/queryPrayCount",e)};exports.prayApi=e;

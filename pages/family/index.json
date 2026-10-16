@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "名门望族",
+  "usingComponents": {
+    "main-container": "../../components/main-container/main-container"
+  }
+}

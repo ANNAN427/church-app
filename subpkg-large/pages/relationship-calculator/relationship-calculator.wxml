@@ -1,0 +1,120 @@
+<!--pages/relationship-calculator/relationship-calculator.wxml - v711-51-fix-v158 修复键盘文字：兄→哥，子→儿 -->
+<view class="container">
+  <!-- 顶部显示区 -->
+  <view class="display-area">
+    <view class="relation-chain-display">
+      <text wx:if="{{relationChain.length > 0}}">
+        <block wx:for="{{relationChain}}" wx:key="index" wx:for-item="item" wx:for-index="idx">
+          <text class="chain-item">{{item}}</text>
+          <text class="chain-de" wx:if="{{idx < relationChain.length - 1}}">的</text>
+        </block>
+      </text>
+      <text wx:else>我</text>
+    </view>
+    
+    <!-- 查询结果 -->
+    <view class="result-area" wx:if="{{queryResult}}">
+      <view class="result-line">
+        <text class="result-label">{{directionLabel || (direction === 'call_other' ? (directionPronoun === 'female' ? '我称呼她：' : '我称呼他：') : (directionPronoun === 'female' ? '她称呼我：' : '他称呼我：'))}}</text>
+        <text class="result-value">{{queryResult}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 控制栏 -->
+  <view class="control-bar">
+    <view class="gender-selector">
+      <view class="gender-option {{gender === 'male' ? 'active' : ''}}" bindtap="setGender" data-gender="male">
+        <view class="gender-check {{gender === 'male' ? 'checked' : ''}}"></view>
+        <text class="gender-label">男</text>
+      </view>
+      <view class="gender-option {{gender === 'female' ? 'active' : ''}}" bindtap="setGender" data-gender="female">
+        <view class="gender-check {{gender === 'female' ? 'checked' : ''}}"></view>
+        <text class="gender-label">女</text>
+      </view>
+    </view>
+    <view class="control-icons">
+      <view class="control-icon" bindtap="showHelp">
+        <text class="icon-text">?</text>
+      </view>
+      <view class="control-icon" bindtap="showSettings">
+        <image class="icon-image" src="/images/avatar.png" mode="aspectFill"></image>
+      </view>
+    </view>
+  </view>
+
+  <!-- 计算器键盘 4x4 布局 - v703-16 修复：父→爸，母→妈 -->
+  <view class="calculator-keyboard">
+    <!-- 第一行：爸、妈、←、清空 -->
+    <view class="key-btn" bindtap="addQuickRelation" data-relation="father">爸</view>
+    <view class="key-btn" bindtap="addQuickRelation" data-relation="mother">妈</view>
+    <view class="key-btn key-func" bindtap="cancelLastRelation">←</view>
+    <view class="key-btn key-clear" bindtap="clearRelation">清空</view>
+    
+    <!-- 第二行：哥、姐、夫、妻 -->
+    <view class="key-btn" bindtap="addQuickRelation" data-relation="brother">哥</view>
+    <view class="key-btn" bindtap="addQuickRelation" data-relation="sister">姐</view>
+    <view class="key-btn {{disableHusband ? 'disabled' : ''}}" catchtap="addHusband" data-disabled="{{disableHusband}}">夫</view>
+    <view class="key-btn {{disableWife ? 'disabled' : ''}}" catchtap="addWife" data-disabled="{{disableWife}}">妻</view>
+    
+    <!-- 第三行：弟、妹、⇌、等号（占 2 行） -->
+    <view class="key-btn" bindtap="addQuickRelation" data-relation="younger_brother">弟</view>
+    <view class="key-btn" bindtap="addQuickRelation" data-relation="younger_sister">妹</view>
+    <view class="key-btn key-func" bindtap="toggleDirection">⇌</view>
+    <view class="key-btn key-equal-double" bindtap="queryRelation">=</view>
+    
+    <!-- 第四行：儿、女、分享、功能入口 -->
+    <view class="key-btn" bindtap="addQuickRelation" data-relation="son">儿</view>
+    <view class="key-btn" bindtap="addQuickRelation" data-relation="daughter">女</view>
+    <button class="key-btn key-share share-btn" open-type="share">↗</button>
+    <view class="key-btn key-func-menu" bindtap="showFuncMenu">⋮</view>
+  </view>
+  
+  <!-- 功能菜单弹窗 -->
+  <view class="func-menu-mask" wx:if="{{showFuncMenu}}" bindtap="hideFuncMenu">
+    <view class="func-menu-content" catchtap="stopPropagation">
+      <view class="func-menu-item" bindtap="goToParse">关系链解析</view>
+      <view class="func-menu-item" bindtap="goToAI">智能问答</view>
+    </view>
+  </view>
+  
+  <!-- 关系链解析模式 -->
+  <view class="section parse-section" wx:if="{{mode === 'parse'}}">
+    <view class="section-header">
+      <view class="section-title">关系链解析</view>
+      <view class="section-back" bindtap="switchMode" data-mode="query">返回</view>
+    </view>
+    <view class="parse-box">
+      <input class="parse-input" placeholder="输入称谓，如：舅公" bindinput="onParseInput" value="{{parseInput}}" />
+      <view class="parse-btn" bindtap="parseRelation">查询</view>
+    </view>
+    <view class="parse-result" wx:if="{{parseResult}}">
+      <view class="result-title">解析结果</view>
+      <view class="result-content">{{parseResult}}</view>
+    </view>
+  </view>
+
+  <!-- 智能问答模式 -->
+  <view class="section ai-section" wx:if="{{mode === 'ai'}}">
+    <view class="section-header">
+      <view class="section-title">智能问答</view>
+      <view class="section-back" bindtap="switchMode" data-mode="query">返回</view>
+    </view>
+    <view class="ai-box">
+      <view class="ai-input-wrapper">
+        <textarea class="ai-input" placeholder="请输入您的问题，例如：我爸爸的哥哥" bindinput="onAiInput" value="{{aiInput}}" maxlength="200" />
+        <view class="ai-send-btn" bindtap="sendAiMessage">发送</view>
+      </view>
+    </view>
+    <view class="ai-chat-box">
+      <view class="ai-message" wx:for="{{aiMessages}}" wx:key="index">
+        <view class="ai-message-item {{item.role}}" wx:if="{{item.role === 'user'}}">
+          <text>{{item.content}}</text>
+        </view>
+        <view class="ai-message-item {{item.role}}" wx:if="{{item.role === 'ai'}}">
+          <text>{{item.content}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "以马内利",
+  "usingComponents": {
+    "main-container": "../../components/main-container/main-container"
+  }
+}

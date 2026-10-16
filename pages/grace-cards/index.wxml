@@ -1,0 +1,52 @@
+<!-- 恩典之言页面 - WXML -->
+<view class="container">
+  <view class="top-card">
+    <view class="title">{{config.title}}</view>
+    <view class="subtitle">
+      <text>{{config.subtitle1}}</text>
+      <text>{{config.subtitle2}}</text>
+    </view>
+    <view class="stats-container">
+      <view class="stat-item">
+        <text class="stat-label">今日剩余次数</text>
+        <text class="stat-value">{{stats.todayRemaining}}</text>
+      </view>
+      <view class="stat-item" bindtap="onViewCollected">
+        <text class="stat-label">已收集恩典</text>
+        <text class="stat-value">{{stats.collectedCount}}/{{stats.totalCards}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <view class="card-section">
+    <view class="card-preview">
+      <view wx:if="{{todayCard.isWaiting}}" class="waiting-mask">
+        <view class="waiting-bg"></view>
+        <view class="mask-content">
+          <view class="gift-box-wrapper">
+            <text class="gift-box">✝️</text>
+            <view class="gift-glow"></view>
+          </view>
+          <text class="mask-title">{{config.sectionTitle}}</text>
+          <text class="mask-subtitle">每日一张，恩典相伴</text>
+          <view class="pulse-ring"></view>
+        </view>
+      </view>
+      
+      <image wx:elif="{{todayCard.cardUrl && !loading}}" class="card-bg" src="{{todayCard.cardUrl}}" mode="aspectFit" />
+      
+      <view wx:else class="loading-placeholder">
+        <view class="loading-spinner"></view>
+        <text>加载中...</text>
+      </view>
+      
+      <view wx:if="{{todayCard.hasClaimed}}" class="claimed-badge">
+        <text>✅ 今日已领取</text>
+      </view>
+    </view>
+    
+    <button class="claim-btn" disabled="{{todayCard.hasClaimed}}" bindtap="onClaimCard">
+      {{todayCard.hasClaimed ? config.claimedText : config.claimBtnText}}
+    </button>
+  </view>
+</view>
