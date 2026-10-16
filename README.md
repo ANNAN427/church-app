@@ -256,7 +256,8 @@ git add .env.example  # ✅ 正确
 如有问题或建议，请通过以下方式联系：
 
 - 项目 Issues: https://github.com/your-username/church-app/issues
-- 开发者邮箱：your-email@example.com
+- 开发者邮箱1：ansdsg123@gmail.com
+- 开发者邮箱 2：2112680948@qq.com
 
 ## 🙏 致谢
 
